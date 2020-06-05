@@ -1,0 +1,6 @@
+# This file references table definitions contained in stand alone
+# files. The syntax is:
+#   TABLEFILE "FileName_def.txt"
+
+TABLEFILE "SubTables/OneDimensionalSubTable_def.txt"
+TABLEFILE "SubTables/TwoDimensionalSubTable_def.txt"
