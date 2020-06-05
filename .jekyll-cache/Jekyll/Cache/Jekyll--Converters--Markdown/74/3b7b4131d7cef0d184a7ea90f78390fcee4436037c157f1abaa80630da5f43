@@ -1,0 +1,12 @@
+I"�<p>The fact that COSMOS is the only open source C2 system has made it an ideal small satellite operations platform. This is one of the reasons Ryan attended the Small Satellite Conference back in August. He gave a very well received COSMOS presentation and was able to meet with many players in the industry.</p>
+
+<p><img src="/img/2016_10_13_ryan_smallsat.png" alt="Ryan at SmallSat" />
+<em>Ryan enjoying the moment at Small Sat 2016</em></p>
+
+<p>I recently googled for “COSMOS Command and Control” and came across a <a href="https://www.linkedin.com/pulse/cosmos-lightweight-command-control-system-cubesats-richard-ibbotson">LinkedIn article</a> about COSMOS. We had heard from Pat Stakem during the summer of 2015 but hadn’t heard much since. He and his students created a CubeSat using the open source <a href="https://cfs.gsfc.nasa.gov/">Core Flight System</a> from NASA Goddard. Of course they used COSMOS for their ground system running on Ubuntu. They integrated Apache to serve up the COSMOS telemetry files generated from Telemetry Extractor to operate their satellite “lights out”. They put together a great <a href="/assets/Stakem-etal-FSW-15.pdf">PowerPoint</a> presentation with screenshots of COSMOS. They also created a <a href="/assets/A Lightweight Open Source Command and Control Center and its interface to Cubesats.pdf">whitepaper</a> detailing the entire process.</p>
+
+<p><img src="/img/2016_10_13_stakem_screenshot.png" alt="Stakem Screenshot" />
+<em>Screenshot showing COSMOS in action</em></p>
+
+<p>Since COSMOS is open source, we don’t always hear about what people are doing with it. If you have a COSMOS success story you’d like to share with us please contact us at <a href="mailto:cosmos@ball.com">cosmos@ball.com</a>.</p>
+:ET

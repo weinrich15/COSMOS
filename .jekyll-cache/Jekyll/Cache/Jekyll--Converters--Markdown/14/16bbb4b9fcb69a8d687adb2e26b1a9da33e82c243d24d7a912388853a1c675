@@ -1,0 +1,12 @@
+I"ù<p>Huge new feature in this release: All COSMOS configuration files are now interpreted with the ERB preprocessor!  This allows you to use Ruby code within the configuration files to help build them.  You can also render partials of common information such as packet headers so you only have to define them once.  See the INST target in the updated Demo project for examples.</p>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/187">#187</a> Must require tempfile in config_parser.rb on non-windows systems</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-35x">Migration Notes from COSMOS 3.5.x:</h3>
+
+<p>None</p>
+:ET

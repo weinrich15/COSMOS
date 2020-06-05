@@ -1,0 +1,18 @@
+I"ú<h3 id="issues">Issues:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/20">#20</a> Handbook Creator should output relative paths</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/21">#21</a> Improve code metrics</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/26">#26</a> Dynamically created file for Mac launchers should not be included in CRC calculation</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/27">#27</a> TestRunner build_test_suites destroys CustomTestSuite if underlying test procedures change</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/28">#28</a> TlmGrapher - Undefined method nan? for 0:Fixnum</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/35">#35</a> Race condition starting new binary log</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/36">#36</a> TlmDetailsDialog non-functional</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/37">#37</a> Remaining TlmGrapher regression</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/38">#38</a> Allow INTERFACE_TARGET to work with target name substitutions</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-30x">Migration Notes from COSMOS 3.0.x:</h3>
+
+<p>The definition of limits persistence has changed. Before it only applied when changing to a bad state (yellow or red). Now persistence applies for all changes including from stale to a valid state and from bad states back to green.</p>
+:ET

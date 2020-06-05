@@ -1,0 +1,166 @@
+I"I<p>DART (Data Archival Retrieval Trending) provides two client APIs to access the data. Decommutated data can be accessed by sending JSON requests to the DART Decommutation Server. A raw packet stream can also be accessed by sending JSON requests to the DART Stream Server.</p>
+
+<h2 id="dart-decommutation-server">DART Decommutation Server</h2>
+
+<p>The DART Decommutation API implements a relaxed version of the <a href="http://www.jsonrpc.org/specification">JSON-RPC 2.0 Specification</a>. Requests with an “id” of NULL are not supported. Numbers can contain special non-string literal’s such as NaN, and +/-inf. Request params must be specified by-position, by-name is not supported. Section 6 of the spec, Batch Operations, is not supported.</p>
+
+<p>DART creates a HTTP Server at port 8779 by default to respond to request for decommutated data. Note that this can be changed by overriding the DART_DECOM port in the system.txt file. The server expects to receive JSON RPC formatted request to the “query” method with a since hash parameter with the following fields.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field Name</th>
+      <th>Description</th>
+      <th>Example</th>
+      <th>Required (Default)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>start_time_sec</td>
+      <td>Unix start time in seconds (UTC)</td>
+      <td>1514764800 (Jan 1, 2018 00:00:00)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>start_time_usec</td>
+      <td>Microseconds part of the start time</td>
+      <td>0</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>end_time_sec</td>
+      <td>Unix end time in seconds (UTC)</td>
+      <td>1514809815 (Jan 1, 2018 12:30:15)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>end_time_usec</td>
+      <td>Microseconds part of the end time</td>
+      <td>0</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>item</td>
+      <td>Array specifying the target, packet, and item name</td>
+      <td>[‘INST’,’HEALTH_STATUS’,’TEMP1’]</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>reduction</td>
+      <td>How to reduce the data</td>
+      <td>“NONE”, “MINUTE”, “HOUR”, “DAY”</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>value_type</td>
+      <td>The type of data to return</td>
+      <td>“RAW”, “RAW_MAX”, “RAW_MIN”, “RAW_AVG”, “RAW_STDDEV”, “CONVERTED”, “CONVERTED_MAX”, “CONVERTED_MIN”, “CONVERTED_AVG”, “CONVERTED_STDDEV”</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>cmd_tlm</td>
+      <td>Whether the request is for command or telemetry data</td>
+      <td>‘CMD’ or ‘TLM’</td>
+      <td>No (‘TLM’)</td>
+    </tr>
+    <tr>
+      <td>limit</td>
+      <td>Maximum number of data items to return. Must be less than or equal to 10000.</td>
+      <td>100</td>
+      <td>No (10000)</td>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>Offset into the data stream. Since the maximum number of values allowed is 10000, you can set the offset to 10000, then 20000, etc to get additional values.</td>
+      <td>10000</td>
+      <td>No (0)</td>
+    </tr>
+    <tr>
+      <td>meta_filters</td>
+      <td>Array of logical meta data filter expressions. Supports logical assertions on all the defined SYSTEM META items in your COSMOS definition. Logical operators include ‘=’ (or ‘==’, both mean equals), ‘!= (not equal)’, ‘&gt;’, ‘&lt;’, ‘&gt;=’, and ‘&lt;=’.</td>
+      <td>[“OPERATOR_NAME” == “Jason”]</td>
+      <td>No ([])</td>
+    </tr>
+    <tr>
+      <td>meta_ids</td>
+      <td>Array of the meta ID(s) to use when filtering the data. The meta IDs are an internal DART ID and thus this is only used if you have obtained the database meta IDs from a previous DART Decommutation Server request.</td>
+      <td>1</td>
+      <td>No ([])</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>After sending the request, the JSON RPC response will contain an Array of Arrays containing the item value, item seconds, item microseconds, samples (always 1 for NONE reduction, varies for other reduction values), and meta_id. Note this meta_id is the ID which can be used in subsequent requests in the meta_ids field.</p>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nt">--</span><span class="o">&gt;</span> <span class="o">{</span><span class="s2">"jsonrpc"</span>: <span class="s2">"2.0"</span>, <span class="s2">"method"</span>: <span class="s2">"query"</span>, <span class="s2">"params"</span>: <span class="o">[{</span><span class="s2">"start_time_sec"</span>: 1514764800, <span class="s2">"start_time_usec"</span>: 0, <span class="s2">"end_time_sec"</span>: 415000000, <span class="s2">"end_time_usec"</span>: 0, <span class="s2">"item"</span>: <span class="o">[</span><span class="s2">"INST"</span>, <span class="s2">"HEALTH_STATUS"</span>, <span class="s2">"TEMP1"</span><span class="o">]</span>, <span class="s2">"reduction"</span>: <span class="s2">"NONE"</span>, <span class="s2">"value_type"</span>: <span class="s2">"CONVERTED"</span><span class="o">}]</span>, <span class="s2">"id"</span>: 1<span class="o">}</span>
+&lt;<span class="nt">--</span> <span class="o">{</span><span class="s2">"jsonrpc"</span>: <span class="s2">"2.0"</span>, <span class="s2">"result"</span>: <span class="o">[[</span>10.3, 1514764800, 0, 1, 1], <span class="o">[</span>15.6, 1514764801, 340, 1, 1]], <span class="s2">"id"</span>: 1<span class="o">}</span></code></pre></figure>
+
+<h2 id="dart-stream-server">DART Stream Server</h2>
+<p>DART creates a TCP/IP Server at port 8777 by default to respond to requests for a stream of raw COSMOS packet data. Note that this can be changed by overriding the DART_STREAM port in the system.txt file. The server expects to receive JSON formatted requests with the following fields.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field Name</th>
+      <th>Description</th>
+      <th>Example</th>
+      <th>Required (Default)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>start_time_sec</td>
+      <td>Unix start time in seconds (UTC)</td>
+      <td>1514764800 (Jan 1, 2018 00:00:00)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>start_time_usec</td>
+      <td>Microseconds part of the start time</td>
+      <td>0</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>end_time_sec</td>
+      <td>Unix end time in seconds (UTC)</td>
+      <td>1514809815 (Jan 1, 2018 12:30:15)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>end_time_usec</td>
+      <td>Microseconds part of the end time</td>
+      <td>0</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>packets</td>
+      <td>Array of arrays specifying the target and packet name</td>
+      <td>[[‘INST’,’HEALTH_STATUS’], [‘INST’,’ADCS’]]</td>
+      <td>No (All Packets)</td>
+    </tr>
+    <tr>
+      <td>cmd_tlm</td>
+      <td>Whether the request is for command or telemetry data</td>
+      <td>‘CMD’ or ‘TLM’</td>
+      <td>No (‘TLM’)</td>
+    </tr>
+    <tr>
+      <td>meta_filters</td>
+      <td>Array of logical meta data filter expressions. Supports logical assertions on all the defined SYSTEM META items in your COSMOS definition. Logical operators include ‘=’ (or ‘==’, both mean equals), ‘!= (not equal)’, ‘&gt;’, ‘&lt;’, ‘&gt;=’, and ‘&lt;=’.</td>
+      <td>[“OPERATOR_NAME” == “Jason”]</td>
+      <td>No ([])</td>
+    </tr>
+    <tr>
+      <td>meta_ids</td>
+      <td>Array of the meta ID(s) to use when filtering the data. The meta IDs are an internal DART ID and thus this is only used if you have obtained the database meta IDs from a previous DART Decommutation Server request.</td>
+      <td>1</td>
+      <td>No ([])</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>After sending the request, the client should read from the same socket which will return COSMOS <a href="/docs/packet_class">Packets</a> using the COSMOS PREIDENTIFIED stream format until the request has streamed all the requested packets.</p>
+:ET

@@ -1,0 +1,15 @@
+I"c<h3 id="issues">Issues:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/61">#61</a> Don’t crash TestRunner if there is an error during require_utilities()</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/63">#63</a> Creating interfaces with the same name does not cause an error</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/64">#64</a> Launcher RUBYW substitution broken by refactor</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/65">#65</a> CmdTlmServer ensure log messages start scrolled to bottom on Linux</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/66">#66</a> Improve graceful shutdown on linux and prevent continuous exceptions from InterfaceThread</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/70">#70</a> ask() should take a default</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-31x">Migration Notes from COSMOS 3.1.x:</h3>
+
+<p>No significant updates to existing code should be needed. The primary reason for update to 3.2.x is fixing the slow shutdown present in all of 3.1.x.</p>
+:ET

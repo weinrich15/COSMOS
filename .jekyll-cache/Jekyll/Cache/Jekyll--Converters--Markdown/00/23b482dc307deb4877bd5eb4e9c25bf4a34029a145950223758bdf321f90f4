@@ -1,0 +1,29 @@
+I"˜<p>Huge new feature in this release: All COSMOS configuration files are now interpreted with the ERB preprocessor!  This allows you to use Ruby code within the configuration files to help build them.  You can also render partials of common information such as packet headers so you only have to define them once.  See the INST target in the updated Demo project for examples.</p>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/168">#168</a> Select unreliably unblocks when closing sockets on linux</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/177">#177</a> MACRO_APPEND in descending order is broken</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/179">#179</a> ScriptRunnerFrame Context Menu Crash</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/182">#182</a> Overriding LOG_WRITERS in cmd_tlm_server.txt can cause issues</li>
+</ul>
+
+<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues170">#170</a> Consider supporting a preprocessor over COSMOS config files</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/171">#171</a> Script Runner should have file open and save GUI dialogs</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/174">#174</a> Add View in Command Sender in Server</li>
+</ul>
+
+<h3 id="maintenance">Maintenance:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/80">#80</a> Investigate performance of nonblocking IO without exceptions</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-35x">Migration Notes from COSMOS 3.5.x:</h3>
+
+<p>None</p>
+:ET

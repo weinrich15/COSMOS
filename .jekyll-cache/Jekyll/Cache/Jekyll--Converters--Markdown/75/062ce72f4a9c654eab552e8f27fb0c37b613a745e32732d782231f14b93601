@@ -1,0 +1,28 @@
+I"<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/663">#663</a> Built-in protocols to support allow_empty_data</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/666">#666</a> Add ability to create target in ConfigEditor</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/679">#679</a> TlmViewer screen audit shouldn’t count reserved item names</li>
+</ul>
+
+<h3 id="maintenance">Maintenance:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/660">#660</a> Update Opengl gem requirement version</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/665">#665</a> Refactor xtce parser</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/661">#661</a> Render function bug?</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/674">#674</a> Add TlmViewerConfig spec and fix to_save</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-40x">Migration Notes from COSMOS 4.0.x:</h3>
+
+<p>Any custom tools in other languages that use the COSMOS API will need to be updated.</p>
+
+<p>To upgrade to the latest version of COSMOS, run “bundle update cosmos” in your COSMOS project folder.</p>
+:ET

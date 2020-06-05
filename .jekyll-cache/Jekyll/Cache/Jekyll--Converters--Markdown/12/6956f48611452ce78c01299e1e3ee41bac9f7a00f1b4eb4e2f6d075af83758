@@ -1,0 +1,3722 @@
+I"�<p>This document provides the information necessary to generate and use COSMOS Telemetry Screens, which are displayed by the COSMOS Telemetry Viewer application.</p>
+
+<div style="clear:both;"></div>
+
+<h2 id="definitions">Definitions</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget</td>
+      <td>A widget is a graphical element on a COSMOS telemetry screen. It could display text, graph data, provide a button, or perform any other display/user input task.</td>
+    </tr>
+    <tr>
+      <td>Screen</td>
+      <td>A screen is a single window that contains any number of widgets which are organized and layed-out in a useful fashion.</td>
+    </tr>
+    <tr>
+      <td>Screen Definition File</td>
+      <td>A screen definition file is an ASCII file that tells COSMOS Telemetry Viewer how to draw a screen. It is made up of a series of keyword/parameter lines that define the telemetry points that are displayed on the screen and how to display them.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="telemetry-viewer-configuration">Telemetry Viewer Configuration</h2>
+<p>Two different types of configuration files are used to configure the COSMOS Telemetry Viewer; the screen definition files and a configuration file that lets the tool know what screens are available and how they are organized.</p>
+
+<h2 id="telemetry-screen-definition-files">Telemetry Screen Definition Files</h2>
+<p>Telemetry screen definition files define the the contents of telemetry screens. They take the general form of a SCREEN keyword followed by a series of widget keywords that define the telemetry screen. Screen definition files specific to a particular target go in that targets configuration folder. For example: config/targets/COSMOS/screens/version.txt. Screen definition files that combine telemetry from multiple targets typically go in the system target’s screens folder. For example: config/targets/SYSTEM/screens/overall.txt.</p>
+
+<h2 id="keywords">Keywords:</h2>
+
+<h3 id="screen">SCREEN</h3>
+<p>The SCREEN keyword is the first keyword in any telemetry screen definition. It defines the name of the screen and parameters that affect the screen overall.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Width</td>
+      <td>Width in pixels or AUTO to let Telemetry Viewer automatically layout the screen</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height in pixels or AUTO to let Telemetry Viewer automatically layout the screen</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Polling Period</td>
+      <td>Number of seconds between screen updates</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Fixed</td>
+      <td>Force the window to be fixed size and not user resizeable</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SCREEN AUTO AUTO 1.0 FIXED</code></pre></figure>
+
+<h3 id="end">END</h3>
+<p>The END keyword is used to indicate the close of a layout widget. For example a VERTICALBOX keyword must be matched with an END keyword to indicate where the VERTICALBOX ends.</p>
+
+<h3 id="stay_on_top">STAY_ON_TOP</h3>
+<p>The STAY_ON_TOP keyword is used to force the screen to the front of the display stack. This forces the window to stay above ALL other windows including other applications not associated with COSMOS.</p>
+
+<h3 id="global_setting">GLOBAL_SETTING</h3>
+<p>The GLOBAL_SETTING keyword is used to apply a widget setting to allow widgets of a certain type.  (See SETTING)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget Class Name</td>
+      <td>The name of the class of widgets that this setting will be applied to. For example: LABEL</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Setting Name</td>
+      <td>Widget specific setting name</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Setting Value(s)</td>
+      <td>Widget specific value(s) to set</td>
+      <td>Varies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">GLOBAL_SETTING LABELVALUELIMITSBAR COLORBLIND TRUE</code></pre></figure>
+
+<h3 id="global_subsetting">GLOBAL_SUBSETTING</h3>
+<p>The GLOBAL_SUBSETTING keyword is used to apply a widget subsetting to allow widgets of a certain type.  (See SUBSETTING)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget Class Name</td>
+      <td>The name of the class of widgets that this setting will be applied to. For example: LABEL</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Subwidget Index</td>
+      <td>Index to the desired subwidget or ‘ALL’</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Setting Name</td>
+      <td>Widget specific setting name</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Setting Value(s)</td>
+      <td>Widget specific value(s) to set</td>
+      <td>Varies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">GLOBAL_SUBSETTING LABELVALUELIMITSBAR 1 COLORBLIND TRUE
+GLOBAL_SUBSETTING LABELVALUELIMITSBAR 0:0 TEXTCOLOR white <span class="c"># Set all text color to white for labelvaluelimitsbars</span></code></pre></figure>
+
+<h3 id="setting">SETTING</h3>
+<p>The SETTING keyword is used to apply a widget setting to the widget that was specified immediately before it.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Setting Name</td>
+      <td>Widget specific setting name</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Setting Value(s)</td>
+      <td>Widget specific value to set</td>
+      <td>Varies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VERTICALBOX
+  LABEL ... <span class="c"># Various other widgets</span>
+END
+SETTING BACKCOLOR 163 185 163 <span class="c"># RGB color for the box background</span></code></pre></figure>
+
+<h3 id="subsetting">SUBSETTING</h3>
+<p>The SUBSETTING keyword is used to apply a widget subsetting to the widget that was specified immediately before it. Subsettings are only valid for widgets that are made up of more than one subwidget.  For example, LABELVALUE is made up of a LABEL at subwidget index 0 and a VALUE at subwidget index 1.  This allows for passing settings to specific subwidgets. Some widgets are made up of multiple subwidgets, e.g. LABELVALUELIMITSBAR. To set the label text color, pass ‘0:0’ as the Subwidget Index to first index the LABELVALUE and then to the LABEL.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Subwidget Index</td>
+      <td>Index to the desired subwidget or ‘ALL’</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Setting Name</td>
+      <td>Widget specific setting name</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Setting Value(s)</td>
+      <td>Widget specific value to set</td>
+      <td>Varies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VERTICALBOX
+  LABELVALUE ...
+    SUBSETTING 0 TEXTCOLOR blue <span class="c"># Change only the label's color</span>
+  LABELVALUELIMITSBAR ...
+    SUBSETTING 0:0 TEXTCOLOR white <span class="c"># Change the label's text color to white</span>
+END</code></pre></figure>
+
+<h3 id="named_widget">NAMED_WIDGET</h3>
+<p>The NAMED_WIDGET keyword is used to give a name to a widget that allows it to be accessed from other widgets using the get_named_widget method of Cosmos::Screen. Note that get_named_widget returns the widget itself and thus must be operated on using methods native to that widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget Name</td>
+      <td>The unique name applied to the following widget instance. Names must be unique per screen.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Widget Type</td>
+      <td>One of the widget types listed in Widget Descriptions</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Widget Parameters</td>
+      <td>The unique parameters for the given widget type</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">NAMED_WIDGET heading TITLE <span class="s2">"Main Heading"</span>
+BUTTON <span class="s2">"Push"</span> <span class="s1">'puts get_named_widget("heading").text'</span></code></pre></figure>
+
+<h3 id="widgetname">WIDGETNAME</h3>
+<p>All other keywords in a telemetry screen definition define the name of a widget and its unique parameters. These aren’t really keywords at all and widgets can have any name besides the real keywords listed above. Whenever a keyword is encountered that is unrecognized, it is assumed that a file of the form widgetname_widget.rb exists, and contains a class called WidgetnameWidget. Because of this convention, new widgets can be added to the system without any change to the telemetry screen definition format Please see the Widget Descriptions section below for the details on all widgets supplied with the COSMOS core system.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget Type</td>
+      <td>One of the widget types listed in Widget Descriptions</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Widget Parameters</td>
+      <td>The unique parameters for the given widget type</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage: See the Example File</p>
+
+<h2 id="example-file">Example File</h2>
+
+<p>Example File: &lt;Cosmos::USERPATH&gt;/config/targets/<TARGET>/myscreen.txt</TARGET></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SCREEN AUTO AUTO 0.5
+GLOBAL_SETTING LABELVALUELIMITSBAR COLORBLIND TRUE
+VERTICAL
+  TITLE <span class="s2">"Instrument Health and Status"</span>
+    SETTING BACKCOLOR 162 181 205
+    SETTING TEXTCOLOR black
+  VERTICALBOX
+    SECTIONHEADER <span class="s2">"General Telemetry"</span>
+    BUTTON <span class="s1">'Start Collect'</span> <span class="s1">'target_name = get_target_name("INST"); cmd("#{target_name} COLLECT with TYPE NORMAL, DURATION 5")'</span>
+    SETTING BACKCOLOR 54 95 58
+    SETTING TEXTCOLOR white
+    FORMATVALUE INST HEALTH_STATUS COLLECTS <span class="s2">"0x%08X"</span>
+    LABELVALUE INST HEALTH_STATUS COLLECT_TYPE
+    LABELVALUE INST HEALTH_STATUS DURATION
+    LABELVALUE INST HEALTH_STATUS ASCIICMD WITH_UNITS 30
+  END
+  SETTING BACKCOLOR 163 185 163
+  VERTICALBOX
+    SECTIONHEADER <span class="s2">"Temperatures"</span>
+    LABELTRENDLIMITSBAR INST HEALTH_STATUS TEMP1 WITH_UNITS 5
+    LABELVALUELIMITSBAR INST HEALTH_STATUS TEMP2
+    LABELVALUELIMITSBAR INST HEALTH_STATUS TEMP3
+    LABELVALUELIMITSBAR INST HEALTH_STATUS TEMP4
+    SETTING GRAY_TOLERANCE 0.1
+  END
+  SETTING BACKCOLOR 203 173 158
+  VERTICALBOX
+    SECTIONHEADER <span class="s2">"Ground Station"</span>
+    LABELVALUE INST HEALTH_STATUS GROUND1STATUS
+    LABELVALUE INST HEALTH_STATUS GROUND2STATUS
+  END
+  VERTICALBOX
+    LABELVALUE INST HEALTH_STATUS TIMEFORMATTED WITH_UNITS 30
+    SCREENSHOTBUTTON
+  END
+  SETTING BACKCOLOR 207 171 169
+END
+SETTING BACKCOLOR 162 181 205</code></pre></figure>
+
+<hr />
+
+<h2 id="telemetry-viewer-settings-files">Telemetry Viewer Settings Files</h2>
+<p>A telemetry viewer settings file tells telemetry viewer what screens exist and how they should be categorized. The default setting files is called tlm_viewer.txt and is located in config/tools/tlm_viewer/tlm_viewer.txt.</p>
+
+<h2 id="keywords-1">Keywords:</h2>
+
+<h3 id="auto_targets">AUTO_TARGETS</h3>
+<p>The AUTO_TARGETS keyword tells Telemetry Viewer to add all the screens defined in the screens directory of each target folder in the config/targets directory. Screens are grouped by target name in the display. For example: all the screens defined in config/targets/COSMOS/screens will be added to a single drop down selection labeled COSMOS.</p>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">AUTO_TARGETS</code></pre></figure>
+
+<h3 id="auto_target">AUTO_TARGET</h3>
+<p>The AUTO_TARGET keyword tells Telemetry Viewer to add all the screens defined in the screens directory of the specified target folder in the config/targets directory. Screens are grouped by target name in the display. For example: all the screens defined in config/targets/COSMOS/screens will be added to a single drop down selection labeled COSMOS. If AUTO_TARGETS is used this keyword does nothing.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Name of the target directory to look for screens.</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">AUTO_TARGET COSMOS</code></pre></figure>
+
+<h3 id="new_column">NEW_COLUMN</h3>
+<p>The NEW_COLUMN keywords creates a new column of drop down selections in Telemetry Viewer. All the AUTO_TARGET or SCREEN keywords after this keyword will be added to a new column in the GUI.</p>
+
+<h3 id="target">TARGET</h3>
+<p>The TARGET keyword is used to call out individual screens within a targets screen directory. It is used in conjunction with the SCREEN keyword.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>Name of the target directory to look for screens.</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TARGET COSMOS</code></pre></figure>
+
+<h3 id="screen-1">SCREEN</h3>
+<p>The SCREEN keyword adds the specified screen from the specified target. It must follow the TARGET keyword and is typically indented to show ownership to the target.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>File Name</td>
+      <td>Name of the file containing the telemetry screen definition. The filename will be upcased and used in the drop down selection.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X Position</td>
+      <td>Position in pixels to draw the left edge of the screen on the display. If not supplied the screen will be centered. If supplied, the Y position must also be supplied.</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Y Position</td>
+      <td>Position in pixels to draw the top edge of the screen on the display. If not supplied the screen will be centered. If supplied, the X position must also be supplied.</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TARGET COSMOS
+  SCREEN version.txt 50 50</code></pre></figure>
+
+<h3 id="group">GROUP</h3>
+<p>The GROUP keyword is used to create a new drop down group in the Tlm Viewer application.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Group Name</td>
+      <td>Label to display in front of the group drop down.</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">GROUP <span class="s2">"Special Ops"</span></code></pre></figure>
+
+<h3 id="group_screen">GROUP_SCREEN</h3>
+<p>The GROUP_SCREEN keyword is used to add a screen to a previously defined group. It must follow the GROUP keyword.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Name of the target where the screen is defined</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>File Name</td>
+      <td>Name of the file containing the telemetry screen definition. The filename will be upcased and used in the drop down selection.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X Position</td>
+      <td>Position in pixels to draw the left edge of the screen on the display. If not supplied the screen will be centered. If supplied, the Y position must also be supplied.</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Y Position</td>
+      <td>Position in pixels to draw the top edge of the screen on the display. If not supplied the screen will be centered. If supplied, the X position must also be supplied.</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">GROUP <span class="s2">"Special Ops"</span>
+  GROUP_SCREEN SYSTEM status.txt</code></pre></figure>
+
+<h3 id="show_on_startup">SHOW_ON_STARTUP</h3>
+<p>The SHOW_ON_STARTUP keyword causes the previously defined SCREEN to be automatically displayed when Telemetry Viewer starts. It must be preceeded by the SCREEN or GROUP_SCREEN keyword.</p>
+
+<h3 id="add_show_on_startup">ADD_SHOW_ON_STARTUP</h3>
+<p>The ADD_SHOW_ON_STARTUP keyword adds show on startup to any screen that has already been defined.  This is useful for adding show on startup to screens defined with AUTO_TARGETS.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Target Name of the screen</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Screen Name</td>
+      <td>Base Name of the screen. This is equal to the screens filename with the .txt extension.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X Position</td>
+      <td>Position in pixels to draw the left edge of the screen on the display. If not supplied the screen will be centered. If supplied, the Y position must also be supplied.</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Y Position</td>
+      <td>Position in pixels to draw the top edge of the screen on the display. If not supplied the screen will be centered. If supplied, the X position must also be supplied.</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ADD_SHOW_ON_STARTUP INST HS 500 300
+ADD_SHOW_ON_STARTUP INST ADCS</code></pre></figure>
+
+<h2 id="example-file-1">Example File</h2>
+<p>Example File: &lt;Cosmos::USERPATH&gt;/config/tools/tlm_viewer/tlm_viewer.txt</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TARGET INST
+  SCREEN <span class="s2">"adcs.txt"</span>
+  SCREEN <span class="s2">"array.txt"</span>
+TARGET INST2
+  SCREEN <span class="s2">"commanding.txt"</span> 898 317
+    SHOW_ON_STARTUP
+  SCREEN <span class="s2">"hs.txt"</span>
+TARGET COSMOS
+  SCREEN <span class="s2">"version.txt"</span>
+GROUP <span class="s2">"My group"</span>
+  GROUP_SCREEN SYSTEM <span class="s2">"status.txt"</span>
+  GROUP_SCREEN INST <span class="s2">"hs.txt"</span>
+  GROUP_SCREEN INST2 <span class="s2">"hs.txt"</span></code></pre></figure>
+
+<hr />
+
+<h2 id="widget-descriptions">Widget Descriptions</h2>
+<p>This section describes the usage of all the telemetry screen widgets that are provided by the core COSMOS system.</p>
+
+<h2 id="layout-widgets">Layout Widgets</h2>
+<p>Layout widgets are used to position other widgets on the screen. For example, the HORIZONTAL layout widget places the widgets it encapsulates horizontally on the screen.</p>
+
+<h3 id="vertical">VERTICAL</h3>
+<p>The VERTICAL widget places the widgets it encapsulates vertically on the screen. The screen defaults to a vertical layout, so if no layout widgets are specified, all widgets will be automatically placed within a VERTICAL layout widget. The VERTICAL widget sizes itself to fit its contents.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Vertical Spacing</td>
+      <td>Vertical spacing between widgets in pixels (default = 3)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Vertical Packing</td>
+      <td>Pack all widgets vertically (default = true)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VERTICAL 50
+  LABEL <span class="s2">"TEST"</span>
+  LABEL <span class="s2">"SCREEN"</span>
+END</code></pre></figure>
+
+<h3 id="verticalbox">VERTICALBOX</h3>
+<p>The VERTICALBOX widget places the widgets it encapsulates vertically on the screen inside of a thin border. The VERTICALBOX widget sizes itself to fit its contents vertically and to fit the screen horizontally.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Title</td>
+      <td>Text to place within the border to label the box</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Vertical Spacing</td>
+      <td>Vertical spacing between widgets in pixels (default = 3)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Vertical Packing</td>
+      <td>Pack all widgets vertically (default = true)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VERTICALBOX Info
+  LABEL <span class="s2">"TEST"</span>
+  LABEL <span class="s2">"SCREEN"</span>
+END</code></pre></figure>
+
+<h3 id="horizontal">HORIZONTAL</h3>
+<p>The HORIZONTAL widget places the widgets it encapsulates horizontally on the screen. The HORIZONTAL widget sizes itself to fit its contents.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Horizontal Spacing</td>
+      <td>Horizontal spacing between widgets in pixels (default = 1)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">HORIZONTAL 100
+  LABEL <span class="s2">"TEST"</span>
+  LABEL <span class="s2">"SCREEN"</span>
+END</code></pre></figure>
+
+<h3 id="horizontalbox">HORIZONTALBOX</h3>
+<p>The HORIZONTALBOX widget places the widgets it encapsulates horizontally on the screen inside of a thin border. The HORIZONTALBOX widget sizes itself to fit its contents.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Title</td>
+      <td>Text to place within the border to label the box</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Horizontal Spacing</td>
+      <td>Horizontal spacing between widgets in pixels (default = 0)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">HORIZONTALBOX Info 10
+  LABEL <span class="s2">"TEST"</span>
+  LABEL <span class="s2">"SCREEN"</span>
+END</code></pre></figure>
+
+<h3 id="matrixbycolumns">MATRIXBYCOLUMNS</h3>
+<p>The MATRIXBYCOLUMNS widget places the widgets into a table-like matrix. The MATRIXBYCOLUMNS widget sizes itself to fit its contents.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Columns</td>
+      <td>The number of columns to create</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Horizontal Spacing</td>
+      <td>Spacing between horizontal items (default = 0)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Vertical Spacing</td>
+      <td>Spacing between vertical items (default = 0)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">MATRIXBYCOLUMNS 3
+  LABEL <span class="s2">"COL 1"</span>
+  LABEL <span class="s2">"COL 2"</span>
+  LABEL <span class="s2">"COL 3"</span>
+
+  LABEL <span class="s2">"100"</span>
+  LABEL <span class="s2">"200"</span>
+  LABEL <span class="s2">"300"</span>
+END</code></pre></figure>
+
+<h3 id="scrollwindow">SCROLLWINDOW</h3>
+<p>The SCROLLWINDOW widget places the widgets inside of it into a scrollable area. The SCROLLWINDOW widget sizes itself to fit the screen in which it is contained.</p>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SCROLLWINDOW
+VERTICAL
+ LABEL <span class="s2">"100"</span>
+ LABEL <span class="s2">"200"</span>
+ LABEL <span class="s2">"300"</span>
+ LABEL <span class="s2">"400"</span>
+ LABEL <span class="s2">"500"</span>
+ LABEL <span class="s2">"600"</span>
+ LABEL <span class="s2">"700"</span>
+ LABEL <span class="s2">"800"</span>
+ LABEL <span class="s2">"900"</span>
+END
+END</code></pre></figure>
+
+<h3 id="tabbook">TABBOOK</h3>
+<p>The TABBOOK widget creates a tabbed area in which to place TABITEM widgets to form a tabbed layout.</p>
+
+<h3 id="tabitem">TABITEM</h3>
+<p>The TABITEM widget creates a tab into which to place widgets. The tab automatically acts like a VERTICAL widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tab Text</td>
+      <td>Text to diplay in the tab</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TABBOOK
+  TABITEM <span class="s2">"Tab 1"</span>
+    LABEL <span class="s2">"100"</span>
+    LABEL <span class="s2">"200"</span>
+  END
+  TABITEM <span class="s2">"Tab 2"</span>
+    LABEL <span class="s2">"300"</span>
+    LABEL <span class="s2">"400"</span>
+  END
+END</code></pre></figure>
+
+<h2 id="decoration-widgets">Decoration Widgets</h2>
+<p>Decoration widgets are used to enhance the appearance of the screen. They do not respond to input, nor does the output vary with telemetry.</p>
+
+<h3 id="label">LABEL</h3>
+<p>The LABEL widget displays text on the screen. Generally, label widgets contain a telemetry mnemonic and are placed next to the telemetry VALUE widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Text</td>
+      <td>Text to display on the label</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABEL <span class="s2">"Note: This is only a warning"</span></code></pre></figure>
+
+<h3 id="horizontalline">HORIZONTALLINE</h3>
+<p>The HORIZONTALLINE widget displays a horizontal line on the screen that can be used as a separator.</p>
+
+<h3 id="sectionheader">SECTIONHEADER</h3>
+<p>The SECTIONHEADER widget displays a label that is underlined with a horizontal line. Generally, SECTIONHEADER widgets are the first widget placed inside of a VERTICALBOX widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Text</td>
+      <td>Text to display above the horizontal line</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SECTIONHEADER Mechanisms</code></pre></figure>
+
+<h3 id="title">TITLE</h3>
+<p>The TITLE widget displays a large centered title on the screen.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Text</td>
+      <td>Text to display above the horizontal line</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TITLE <span class="s2">"Title"</span>
+HORIZONTALLINE
+SECTIONHEADER <span class="s2">"Section Header"</span>
+LABEL <span class="s2">"Label"</span></code></pre></figure>
+
+<h3 id="spacer">SPACER</h3>
+<p>The SPACER widget inserts a spacer into a layout. This can be used to separate or align other widgets. For more information about how the widget size policy works please see the <a href="http://doc.qt.io/qt-4.8/qsizepolicy.html#Policy-enum">QSizePolicy::Policy</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Width</td>
+      <td>The width of the spacer in pixels.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>The height of the spacer in pixels.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Horizontal Policy</td>
+      <td>The horizontal size policy of the spacer.  Can be FIXED, MINIMUM, MAXIMUM, PREFERRED, EXPANDING, MINIMUMEXPANDING, or IGNORED.  Defaults to MINIMUM.</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Vertical Policy</td>
+      <td>The vertical size policy of the spacer.  Can be FIXED, MINIMUM, MAXIMUM, PREFERRED, EXPANDING, MINIMUMEXPANDING, or IGNORED.  Defaults to MINIMUM.</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VERTICAL 3 FALSE
+  LABEL <span class="s2">"Spacer below"</span>
+  SPACER 0 100 MINIMUM EXPANDING
+  LABEL <span class="s2">"Spacer above"</span>
+END</code></pre></figure>
+
+<h2 id="telemetry-widgets">Telemetry widgets</h2>
+<p>Telemetry widgets are used to display telemetry values. The first parameters to each of these widgets is a telemetry mnemonic. Depending on the type and purpose of the telemetry item, the screen designer may select from a wide selection of widgets to display the value in the most useful format. They are listed here in alphabetical order.</p>
+
+<h3 id="array">ARRAY</h3>
+<p>The ARRAY widget is used to display data from an array telemetry item. Data is organized into rows and by default space separated.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the widget (default = 200)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the widget (default = 100)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Format String</td>
+      <td>Format string applied to each array item (default = nil)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Items per Row</td>
+      <td>Number of array items per row (default = 4)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ARRAY INST HEALTH_STATUS ARY 250 50 <span class="s2">"0x%x"</span> 6 FORMATTED
+ARRAY INST HEALTH_STATUS ARY2 200 60 nil 4 WITH_UNITS</code></pre></figure>
+
+<h3 id="block">BLOCK</h3>
+<p>The BLOCK widget is used to display data from a block telemetry item. Data is organized into rows and space separated.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the widget (default = 200)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the widget (default = 100)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Format String</td>
+      <td>Format string applied to byte of the block (default = “%02X”)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Bytes per Word</td>
+      <td>Number of bytes per word (default = 4)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Words per Row</td>
+      <td>Number of words per row (default = 4)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Address Format</td>
+      <td>Format for the address printed at the beginning of each line (default = nil which means do not print an address)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = RAW)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">BLOCK INST IMAGE IMAGE 400 130 <span class="s2">"%02X"</span> 4 4 <span class="s2">"0x%08X:"</span></code></pre></figure>
+
+<h3 id="formatfontvalue">FORMATFONTVALUE</h3>
+<p>The FORMATFONTVALUE widget displays a box with a value printed inside that is formatted by the specified string rather than by a format string given in the telemetry definition files. Additionally, this widget can use a specified font. The white portion of the box darkens to gray while the value remains stagnant, then brightens to white each time the value changes. Additionally the value is colored based on the items limits state (Red for example if it is out of limits).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Format String</td>
+      <td>Printf style format string to apply to the telemetry item</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Font Name</td>
+      <td>The font to use. (default = arial)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Font Size</td>
+      <td>The font size. (default = 100)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Font Weight</td>
+      <td>The font weight. See <a href="http://doc.qt.io/qt-4.8/qfont.html#Weight-enum">QFont::Weight</a> for more information. (default = Qt::Font::Normal)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Font Italics</td>
+      <td>Whether to display the font in italics. (default = false)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">FORMATFONTVALUE INST LATEST TIMESEC %012u CONVERTED 12 arial 15 Qt::Font::Bold <span class="nb">true</span></code></pre></figure>
+
+<h3 id="formatvalue">FORMATVALUE</h3>
+<p>The FORMATVALUE widget displays a box with a value printed inside that is formatted by the specified string rather than by a format string given in the telemetry definition files. The white portion of the box darkens to gray while the value remains stagnant, then brightens to white each time the value changes. Additionally the value is colored based on the items limits state (Red for example if it is out of limits).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Format String</td>
+      <td>Printf style format string to apply to the telemetry item</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">FORMATVALUE INST LATEST TIMESEC %012u CONVERTED 12</code></pre></figure>
+
+<h3 id="labelformatvalue">LABELFORMATVALUE</h3>
+<p>The LABELFORMATVALUE widget displays a label with a value box that is formatted by the specified string rather than by a format string given in the telemetry definition files. The white portion of the box darkens to gray while the value remains stagnant, then brightens to white each time the value changes. Additionally the value is colored based on the items limits state (Red for example if it is out of limits).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Format String</td>
+      <td>Printf style format string to apply to the telemetry item</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELFORMATVALUE INST LATEST TIMESEC %012u CONVERTED 12</code></pre></figure>
+
+<h3 id="labelprogressbar">LABELPROGRESSBAR</h3>
+<p>The LABELPROGRESSBAR widget displays a LABEL widget showing the items name followed by a PROGRESSBAR widget to show the items value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Scale Factor</td>
+      <td>Value to multiple the telemetry item by before displaying the in the progress bar. Final value should be in the range of 0 to 100. (default 1.0)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the progress bar (default = 80 pixels)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELPROGRESSBAR INST ADCS POSPROGRESS 2 200 RAW
+LABELPROGRESSBAR INST ADCS POSPROGRESS</code></pre></figure>
+
+<h3 id="labeltrendlimitsbar">LABELTRENDLIMITSBAR</h3>
+<p>The LABELTRENDLIMITSBAR widget displays a LABEL widget to show the item’s name, a VALUE widget to show the telemetry items current value, a VALUE widget to display the value of the item X seconds ago, and a TRENDBAR widget to display the items value within its limits ranges and its trend.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Trend Seconds</td>
+      <td>The number of seconds in the past to display the trend value (default = 60)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Characters</td>
+      <td>The number of characters to display the telemetry value (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the limits bar (default = 160)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the limits bar (default = 25)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELTRENDLIMITSBAR INST HEALTH_STATUS TEMP1 CONVERTED 5 20 200 50
+LABELTRENDLIMITSBAR INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="labelvalue">LABELVALUE</h3>
+<p>The LABELVALUE widget displays a LABEL widget to shows the telemetry items name followed by a VALUE widget to display the items value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Alignment</td>
+      <td>How to align the label and value items. Options are ‘split’, ‘right’, ‘left’, ‘center’. (default = split)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUE INST LATEST TIMESEC CONVERTED 18 center
+LABELVALUE INST LATEST COLLECT_TYPE</code></pre></figure>
+
+<h3 id="labelvaluedesc">LABELVALUEDESC</h3>
+<p>The LABELVALUEDESC widget displays a LABEL widget to shows the telemetry items description followed by a VALUE widget to display the items value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>The description to display in the label (default is to display the description text associated with the telemetry item)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUEDESC INST LATEST TIMESEC <span class="s2">"Time in seconds"</span> CONVERTED 18
+LABELVALUEDESC INST LATEST COLLECT_TYPE</code></pre></figure>
+
+<h3 id="labelvaluelimitsbar">LABELVALUELIMITSBAR</h3>
+<p>The LABELVALUELIMITSBAR widget displays a LABEL widget to shows the telemetry item’s name, followed by a VALUE widget to display the items value, followed by a LIMITSBAR widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUELIMITSBAR INST HEALTH_STATUS TEMP1 CONVERTED 18
+LABELVALUELIMITSBAR INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="labelvaluelimitscolumn">LABELVALUELIMITSCOLUMN</h3>
+<p>The LABELVALUELIMITSCOLUMN widget displays a LABEL widget to shows the telemetry item’s name, followed by a VALUE widget to display the items value, followed by a LIMITSCOLUMN widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUELIMITSCOLUMN INST HEALTH_STATUS TEMP1 CONVERTED 18
+LABELVALUELIMITSCOLUMN INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="labelvaluerangebar">LABELVALUERANGEBAR</h3>
+<p>The LABELVALUERANGEBAR widget displays a LABEL widget to shows the telemetry item’s name, followed by a VALUE widget to display the items value, followed by a RANGEBAR widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Low Value</td>
+      <td>Minimum value to display on the range bar. If the telemetry item goes below this value the bar is “pegged” on the low end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>High Value</td>
+      <td>Maximum value to display on the range bar. If the telemetry item goes above this value the bar is “pegged” on the high end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the range bar (default = 160)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the range bar (default = 25)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUERANGEBAR INST HEALTH_STATUS TEMP1 0 50 CONVERTED 18 200 50
+LABELVALUERANGEBAR INST HEALTH_STATUS TEMP1 0 50</code></pre></figure>
+
+<h3 id="labelvaluerangecolumn">LABELVALUERANGECOLUMN</h3>
+<p>The LABELVALUERANGECOLUMN widget displays a LABEL widget to shows the telemetry item’s name, followed by a VALUE widget to display the items value, followed by a RANGECOLUMN widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Low Value</td>
+      <td>Minimum value to display on the range bar. If the telemetry item goes below this value the bar is “pegged” on the low end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>High Value</td>
+      <td>Maximum value to display on the range bar. If the telemetry item goes above this value the bar is “pegged” on the high end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 8)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the range bar (default = 30)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the range bar (default = 100)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUERANGECOLUMN INST HEALTH_STATUS TEMP1 0 50 CONVERTED 18 50 200
+LABELVALUERANGECOLUMN INST HEALTH_STATUS TEMP1 0 50</code></pre></figure>
+
+<h3 id="limitsbar">LIMITSBAR</h3>
+<p>The LIMITSBAR widget displays a graphical representation of where an items value falls withing its limits ranges horizontally.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>The width of the range bar (default = 160)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>The height of the range bar (default = 25)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LIMITSBAR INST HEALTH_STATUS TEMP1 CONVERTED 200 50
+LIMITSBAR INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="limitscolumn">LIMITSCOLUMN</h3>
+<p>The LIMITSCOLUMN widget displays a graphical representation of where an items value falls withing its limits ranges vertically.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>The width of the range bar (default = 30)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>The height of the range bar (default = 100)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LIMITSCOLUMN INST HEALTH_STATUS TEMP1 CONVERTED 50 200
+LIMITSCOLUMN INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="limitscolor">LIMITSCOLOR</h3>
+<p>The LIMITSCOLOR widget displays a stoplight-like circle depicting the limits color of an item</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Radius</td>
+      <td>Radius of the circle (default = 10 pixels)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Full Item Name</td>
+      <td>Show the full item name (default = false)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LIMITSCOLOR INST HEALTH_STATUS TEMP1 CONVERTED 20 TRUE
+LIMITSCOLOR INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="valuelimitsbar">VALUELIMITSBAR</h3>
+<p>The VALUELIMITSBAR widget displays a graphical representation of where an items value falls withing its limits ranges horizontally and its value in a VALUE widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VALUELIMITSBAR INST HEALTH_STATUS TEMP1 CONVERTED 18
+VALUELIMITSBAR INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="valuelimitscolumn">VALUELIMITSCOLUMN</h3>
+<p>The VALUELIMITSCOLUMN widget displays a graphical representation of where an items value falls withing its limits ranges vertically and its value in a VALUE widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 8)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VALUELIMITSCOLUMN INST HEALTH_STATUS TEMP1 CONVERTED 18
+VALUELIMITSCOLUMN INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="valuerangebar">VALUERANGEBAR</h3>
+<p>The VALUERANGEBAR widget displays a graphical representation of where an items value falls withing a range horizontally and its value in a VALUE widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Low Value</td>
+      <td>Minimum value to display on the range bar. If the telemetry item goes below this value the bar is “pegged” on the low end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>High Value</td>
+      <td>Maximum value to display on the range bar. If the telemetry item goes above this value the bar is “pegged” on the high end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the range bar (default = 160)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the range bar (default = 25)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VALUERANGEBAR INST HEALTH_STATUS TEMP1 0 100 CONVERTED 18 200 50
+VALUERANGEBAR INST HEALTH_STATUS TEMP1 <span class="nt">-1000</span> 1000</code></pre></figure>
+
+<h3 id="valuerangecolumn">VALUERANGECOLUMN</h3>
+<p>The VALUERANGECOLUMN widget displays a graphical representation of where an items value falls withing a range vertically and its value in a VALUE widget..</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Low Value</td>
+      <td>Minimum value to display on the range bar. If the telemetry item goes below this value the bar is “pegged” on the low end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>High Value</td>
+      <td>Maximum value to display on the range bar. If the telemetry item goes above this value the bar is “pegged” on the high end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Number of Characters</td>
+      <td>The number of characters wide to make the value box (default = 8)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the range bar (default = 30)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the range bar (default = 100)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VALUERANGECOLUMN INST HEALTH_STATUS TEMP1 0 100 CONVERTED 18 50 200
+VALUERANGECOLUMN INST HEALTH_STATUS TEMP1 <span class="nt">-1000</span> 1000</code></pre></figure>
+
+<h3 id="linegraph">LINEGRAPH</h3>
+<p>The LINEGRAPH widget displays a line graph of a telemetry items value verses sample number.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Num Samples</td>
+      <td>The number of samples to display on the graph (default = 100)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>The width of the graph (default = 300)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>The height of the graph (default = 200)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LINEGRAPH INST HEALTH_STATUS TEMP1
+LINEGRAPH INST HEALTH_STATUS TEMP1 10 400 100 RAW</code></pre></figure>
+
+<h3 id="progressbar">PROGRESSBAR</h3>
+<p>The PROGRESSBAR widget displays a progress bar that is useful for displaying percentages.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Scale Factor</td>
+      <td>Value to multiple the telemetry item by before displaying the in the progress bar. Final value should be in the range of 0 to 100. (default 1.0)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the progress bar (default = 80 pixels)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">PROGRESSBAR INST ADCS POSPROGRESS 0.5 200
+PROGRESSBAR INST ADCS POSPROGRESS</code></pre></figure>
+
+<h3 id="rangebar">RANGEBAR</h3>
+<p>The RANGEBAR widget displays a graphical representation of where an items value falls withing a range horizontally.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Low Value</td>
+      <td>Minimum value to display on the range bar. If the telemetry item goes below this value the bar is “pegged” on the low end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>High Value</td>
+      <td>Maximum value to display on the range bar. If the telemetry item goes above this value the bar is “pegged” on the high end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the range bar (default = 160)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the range bar (default = 25)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">RANGEBAR INST HEALTH_STATUS TEMP1 0 100 CONVERTED 200 50
+RANGEBAR INST HEALTH_STATUS TEMP1 <span class="nt">-1000</span> 1000</code></pre></figure>
+
+<h3 id="rangecolumn">RANGECOLUMN</h3>
+<p>The RANGECOLUMN widget displays a graphical representation of where an items value falls withing a range vertically.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Low Value</td>
+      <td>Minimum value to display on the range bar. If the telemetry item goes below this value the bar is “pegged” on the low end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>High Value</td>
+      <td>Maximum value to display on the range bar. If the telemetry item goes above this value the bar is “pegged” on the high end.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the range bar (default = 30)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the range bar (default = 100)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">RANGECOLUMN INST HEALTH_STATUS TEMP1 0 100 CONVERTED 50 200
+RANGECOLUMN INST HEALTH_STATUS TEMP1 <span class="nt">-1000</span> 1000</code></pre></figure>
+
+<h3 id="textbox">TEXTBOX</h3>
+<p>The TEXTBOX widget provides a large box for multiline text.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the text box (default = 200)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the text box (default = 100)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TEXTBOX INST HEALTH_STATUS TIMEFORMATTED 150 50
+TEXTBOX INST HEALTH_STATUS TIMEFORMATTED</code></pre></figure>
+
+<h3 id="timegraph">TIMEGRAPH</h3>
+<p>The TIMEGRAPH widget displays a line graph of a telemetry items value verses time.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Num Samples</td>
+      <td>The number of samples to display on the graph (default = 100)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>The width of the graph (default = 300)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>The height of the graph (default = 200)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Point Size</td>
+      <td>Size of the point in pixels (default = 5)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Time Item Name</td>
+      <td>The telemetry item to use as the time on the X axis (default = PACKET_TIMESECONDS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TIMEGRAPH INST HEALTH_STATUS TEMP1
+TIMEGRAPH INST HEALTH_STATUS TEMP1 10 400 100 <span class="nb">false </span>TIMESECONDS CONVERTED</code></pre></figure>
+
+<h3 id="trendbar">TRENDBAR</h3>
+<p>The TRENDBAR widget provides the same functionality as the LIMITSBAR widget except that it also keeps a history of the telemetry item and graphically shows where the value was X seconds ago.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>The type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Trend Seconds</td>
+      <td>The number of seconds in the past to display the trend value (default = 60)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the limits bar (default = 160)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the limits bar (default = 25)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TRENDBAR INST HEALTH_STATUS TEMP1 CONVERTED 20 200 50
+TRENDBAR INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="trendlimitsbar">TRENDLIMITSBAR</h3>
+<p>The TRENDLIMITSBAR widget displays a VALUE widget to show the telemetry items current value, a VALUE widget to display the value of the item X seconds ago, and a TRENDBAR widget to display the items value within its limits ranges and its trend.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>Packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>Item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>Type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Trend Seconds</td>
+      <td>Number of seconds in the past to display the trend value (default = 60)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Characters</td>
+      <td>Number of characters to display the value (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the limits bar (default = 160)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the limits bar (default = 25)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TRENDLIMITSBAR INST HEALTH_STATUS TEMP1 CONVERTED 20 20 200 50
+TRENDLIMITSBAR INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h3 id="value">VALUE</h3>
+<p>The VALUE widget displays a box with a value printed inside. The white portion of the box darkens to gray while the value remains stagnant, then brightens to white each time the value changes. Additionally the value is colored based on the items limits state (Red for example if it is out of limits).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>Packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>Item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>Type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = WITH_UNITS)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Characters</td>
+      <td>Number of characters to display the value (default = 12)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">VALUE INST HEALTH_STATUS TEMP1 CONVERTED 18
+VALUE INST HEALTH_STATUS TEMP1</code></pre></figure>
+
+<h2 id="interactive-widgets">Interactive Widgets</h2>
+<p>Interactive widgets are used to gather input from the user. Unlike all other widgets, which only output some graphical representation, interactive widgets permit input either from the keyboard or mouse.</p>
+
+<h3 id="button">BUTTON</h3>
+<p>The BUTTON widget displays a rectangular button that is clickable by the mouse. Upon clicking, the button executes the Ruby code assigned. Buttons can be used to send commands and perform other tasks.</p>
+
+<p>If you want your button to use values from other widgets, define them as named widgets and read their values using the <code class="language-plaintext highlighter-rouge">get_named_widget("WIDGET_NAME").text</code> method. See the example in CHECKBUTTON. If your button logic gets complex it’s recommended to <code class="language-plaintext highlighter-rouge">require</code> a separate script and pass the screen to the script using self such as <code class="language-plaintext highlighter-rouge">require utility.rb; utility_method(self)</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Button Text</td>
+      <td>Text displayed on the button</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>String to Eval</td>
+      <td>Ruby code to execute when the button is pressed</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage to execute a command:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">BUTTON <span class="s1">'Start Collect'</span> <span class="s1">'cmd("INST COLLECT with TYPE NORMAL, DURATION 5")'</span></code></pre></figure>
+
+<p>Example Usage to open Script Runner with a given script:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">BUTTON <span class="s2">"Run Script"</span> <span class="s1">'system("ruby #{Cosmos::USERPATH}/tools/ScriptRunner #{Cosmos::USERPATH}/procedures/checks.rb")'</span></code></pre></figure>
+
+<h3 id="checkbutton">CHECKBUTTON</h3>
+<p>The CHECKBUTTON widget displays a check box. Note this is of limited use by itself and is primarily used in conjunction with NAMED_WIDGET.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Checkbox Text</td>
+      <td>Text displayed next to the checkbox</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Checked</td>
+      <td>Whether the checkbox should initially be checked. Valid values are ‘CHECKED’ or ‘UNCHECKED’. (default = ‘UNCHECKED’)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">NAMED_WIDGET CHECK CHECKBUTTON <span class="s1">'Ignore Hazardous Checks'</span>
+BUTTON <span class="s1">'Send'</span> <span class="s1">'if get_named_widget("CHECK").checked? then cmd_no_hazardous_check("INST CLEAR") else cmd("INST CLEAR") end'</span></code></pre></figure>
+
+<h3 id="combobox">COMBOBOX</h3>
+<p>The COMBOBOX widget displays a drop down list of text items that the user can choose from. Note this is of limited use by itself and is primarily used in conjunction with NAMED_WIDGET.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Option Text 1</td>
+      <td>Text to display in the selection drop down</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Option Text n</td>
+      <td>Text to display in the selection drop down</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">BUTTON <span class="s1">'Start Collect'</span> <span class="s1">'cmd("INST COLLECT with TYPE #{get_named_widget("COLLECT_TYPE").text}, DURATION 10.0")'</span>
+NAMED_WIDGET COLLECT_TYPE COMBOBOX NORMAL SPECIAL</code></pre></figure>
+
+<h3 id="radiobutton">RADIOBUTTON</h3>
+<p>The RADIOBUTTON widget a radio button and text. Note this is of limited use by itself and is primarily used in conjunction with NAMED_WIDGET.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Text</td>
+      <td>Text to display next to the radio button</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Checked</td>
+      <td>Whether the radio button should initially be checked. Valid values are ‘CHECKED’ or ‘UNCHECKED’. (default = ‘UNCHECKED’)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">NAMED_WIDGET ABORT RADIOBUTTON <span class="s1">'Abort'</span>
+NAMED_WIDGET CLEAR RADIOBUTTON <span class="s1">'Clear'</span>
+BUTTON <span class="s1">'Send'</span> <span class="s1">'if get_named_widget("ABORT").checked? then cmd("INST ABORT") else cmd("INST CLEAR") end'</span></code></pre></figure>
+
+<h3 id="textfield">TEXTFIELD</h3>
+<p>The TEXTFIELD widget displays a rectangular box that the user can enter text into.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Characters</td>
+      <td>Width of the text field in characters (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Text</td>
+      <td>Default text to put in the text field (default is blank)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">NAMED_WIDGET DURATION TEXTFIELD 12 <span class="s2">"10.0"</span>
+BUTTON <span class="s1">'Start Collect'</span> <span class="s1">'cmd("INST COLLECT with TYPE NORMAL, DURATION #{get_named_widget("DURATION").text.to_f}")'</span></code></pre></figure>
+
+<h3 id="screenshotbutton">SCREENSHOTBUTTON</h3>
+<p>The SCREENSHOTBUTTON widget displays a button that when clicked takes a screenshot.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Button Text</td>
+      <td>Text to display on the button. (default = “Screenshot”)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Directory</td>
+      <td>Directory to save the screenshot. (default = System.paths[‘LOGS’])</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SCREENSHOTBUTTON <span class="s2">"Screenshot"</span> <span class="s2">"C:/images/screenshots"</span></code></pre></figure>
+
+<h2 id="canvas-widgets">Canvas Widgets</h2>
+<p>Canvas Widgets are used to draw custom displays into telemetry screens. The canvas coordinate frame places (0,0) in the upper-left corner of the canvas.</p>
+
+<h3 id="canvas">CANVAS</h3>
+<p>The CANVAS widget is the layout widget for the other canvas widgets. All canvas widgets must be enclosed within a CANVAS widget. It is included with the other CANVAS widgets rather than in the layout section for simplicity.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Width</td>
+      <td>Width of the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>Height of the canvas</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage: See the other Canvas examples</p>
+
+<h3 id="canvaslabel">CANVASLABEL</h3>
+<p>The CANVASLABEL widget draws text onto the canvas.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>X</td>
+      <td>X position of the upper-left corner of the text on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y</td>
+      <td>Y position of the upper-left corner of the text on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Text</td>
+      <td>Text to draw onto the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Font Size</td>
+      <td>Font size of the text (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Color</td>
+      <td>Color of the text (default = ‘black’)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVAS 100 100
+  CANVASLABEL 5 34 <span class="s2">"Label1"</span> 24 red
+  CANVASLABEL 5 70 <span class="s2">"Label2"</span> 18 blue
+END</code></pre></figure>
+
+<h3 id="canvaslabelvalue">CANVASLABELVALUE</h3>
+<p>The CANVASLABELVALUE widget draws the text value of a telemetry item onto the canvas in an optional frame.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X</td>
+      <td>X position of the upper-left corner of the text on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y</td>
+      <td>Y position of the upper-left corner of the text on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Font Size</td>
+      <td>Font size of the text (default = 12)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Color</td>
+      <td>Color of the text (default = ‘black’)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Frame</td>
+      <td>Whether to draw a frame around the value in the same color as the font (default = true)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Frame Width</td>
+      <td>Width in pixels of the frame (default = 3)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>Type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = CONVERTED)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVAS 200 100
+  CANVASLABELVALUE INST HEALTH_STATUS TEMP1 5 34 12 red <span class="nb">true </span>5
+  CANVASLABELVALUE INST HEALTH_STATUS TEMP2 5 70 10 blue <span class="nb">false </span>0 WITH_UNITS
+END</code></pre></figure>
+
+<h3 id="canvasimage">CANVASIMAGE</h3>
+<p>The CANVASIMAGE widget displays a GIF image on the canvas.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Image Name</td>
+      <td>Name of a image file. The file must be located in the &lt;Cosmos::USERPATH&gt;/data directory.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X</td>
+      <td>Left X position to draw the image</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y</td>
+      <td>Top Y position to draw the image</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVAS 300 300
+  CANVASIMAGE <span class="s2">"satellite.gif"</span> 0 0
+END</code></pre></figure>
+
+<h3 id="canvasimagevalue">CANVASIMAGEVALUE</h3>
+<p>The CANVASIMAGEVALUE widget displays a GIF image on the canvas that changes with a telemetry value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>Packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>Item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Filename Prefix</td>
+      <td>The prefix part of the filename of the gif images (expected to be in the user’s data directory). The actual filenames will be this value plus the word “on” or the word “off” and “.gif”</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X</td>
+      <td>X position of the upper-left corner of the image on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y</td>
+      <td>Y position of the upper-left corner of the image on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>Type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = RAW)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVAS 150 200
+  CANVASLABELVALUE INST HEALTH_STATUS GROUND1STATUS 0 12 12 black <span class="nb">false
+  </span>CANVASIMAGEVALUE INST HEALTH_STATUS GROUND1STATUS <span class="s2">"ground"</span> 0 20 <span class="c"># Uses groundon.gif and groundoff.gif</span>
+END</code></pre></figure>
+
+<h3 id="canvasline">CANVASLINE</h3>
+<p>The CANVASLINE widget draws a line onto the canvas.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>X1</td>
+      <td>X position of the first endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y1</td>
+      <td>Y position of the first endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X2</td>
+      <td>X position of the second endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y2</td>
+      <td>Y position of the second endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Color</td>
+      <td>Color of the line(default = ‘black’)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the line in pixels (default = 1)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Connector</td>
+      <td>Indicates whether or not to draw a circle at the second endpoint of the line: NO_CONNECTOR or CONNECTOR (default = NO_CONNECTOR)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVAS 100 50
+  CANVASLINE 5 5 95 5
+  CANVASLINE 5 5 5 45 green 2 CONNECTOR
+  CANVASLINE 95 5 95 45 blue 3 CONNECTOR
+END</code></pre></figure>
+
+<h3 id="canvaslinevalue">CANVASLINEVALUE</h3>
+<p>The CANVASLINEVALUE widget draws a line onto the canvas in one of two colors based on the value of the associated telemetry item.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>Packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>Item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X1</td>
+      <td>X position of the first endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y1</td>
+      <td>Y position of the first endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>X2</td>
+      <td>X position of the second endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y2</td>
+      <td>Y position of the second endpoint of the line on the canvas</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Color On</td>
+      <td>Color of the line when the telemtry point is considered on (default = ‘green’)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Color Off</td>
+      <td>Color of the line when the telemtry point is considered off (default = ‘blue’)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the line in pixels (default = 3)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Connector</td>
+      <td>Indicates whether or not to draw a circle at the second endpoint of the line: NO_CONNECTOR or CONNECTOR (default = NO_CONNECTOR)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Value Type</td>
+      <td>Type of the value to display: RAW, CONVERTED, FORMATTED, or WITH_UNITS (default = RAW)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVAS 120 50
+  CANVASLABELVALUE INST HEALTH_STATUS GROUND1STATUS 0 12 12 black <span class="nb">false
+  </span>CANVASLINEVALUE INST HEALTH_STATUS GROUND1STATUS 5 25 115 25
+  CANVASLINEVALUE INST HEALTH_STATUS GROUND1STATUS 5 45 115 45 purple red 3 CONNECTOR
+END</code></pre></figure>
+
+<h3 id="canvasdot">CANVASDOT</h3>
+<p>The CANVASDOT widget draws a dot onto the canvas, and it can be programmed to change its position with ruby code.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>X <strong>or</strong> Str to Eval</td>
+      <td>X position of the dot, or it can be a string of ruby code</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Y <strong>or</strong> Str to Eval</td>
+      <td>Y position of the dot, or it can be a string of ruby code</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Color</td>
+      <td>Color of the dot (default = black)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td>Width of the dot in pixels (default = 3)</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVAS 201 201
+  CANVASLINE 0 0 200 0
+  CANVASLINE 200 0 200 200
+  CANVASLINE 200 200 0 200
+  CANVASLINE 0 200 0 0
+  CANVASLINE 99 1 99 199 white
+  CANVASLINE 1 99 199 99 white
+  CANVASDOT <span class="s1">'tlm_variable("GIMBAL AXIS_STATUS_X POSITION", :RAW) + 100'</span> <span class="s1">'tlm_variable("GIMBAL AXIS_STATUS_Y POSITION", :RAW) + 100'</span> red
+END</code></pre></figure>
+
+<p><img src="https://cloud.githubusercontent.com/assets/5217851/11122513/d29af8c0-8918-11e5-9138-17011956911a.jpg" alt="720311333_78794" /></p>
+
+<h2 id="widget-settings">Widget Settings</h2>
+<p>Settings allow for additional tweaks and options to be applied to widgets that are not available in their constructors. These settings are all configured through the SETTING and GLOBAL_SETTING keywords. SETTING applies only to the widget defined immediately before it. GLOBAL_SETTING applies to all widgets.</p>
+
+<h2 id="common-settings">Common Settings</h2>
+<p>The following settings are available to all widgets if their underlying Qt GUI object supports them.</p>
+
+<h3 id="backcolor">BACKCOLOR</h3>
+<p>The BACKCOLOR setting sets the background color for a widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Color Name</td>
+      <td>Common name for the color, e.g. ‘black’, ‘red’, etc</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>or</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Red Value</td>
+      <td>Red portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Green Value</td>
+      <td>Green portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Blue Value</td>
+      <td>Blue portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SETTING BACKCOLOR red
+SETTING BACKCOLOR 162 181 205</code></pre></figure>
+
+<h3 id="textcolor">TEXTCOLOR</h3>
+<p>The TEXTCOLOR setting sets the text color for a widget.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Color Name</td>
+      <td>Common name for the color, e.g. ‘black’, ‘red’, etc</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Red Value</td>
+      <td>Red portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Green Value</td>
+      <td>Green portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Blue Value</td>
+      <td>Blue portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SETTING TEXTCOLOR red
+SETTING TEXTCOLOR 162 181 205</code></pre></figure>
+
+<h3 id="width">WIDTH</h3>
+<p>The WIDTH setting forces the height of a widget to a certain size.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Width</td>
+      <td>Desired with in pixels</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SETTING WIDTH 100</code></pre></figure>
+
+<h3 id="height">HEIGHT</h3>
+<p>The HEIGHT setting forces the height of a widget to a certain size.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Height</td>
+      <td>Desired height in pixels</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">SETTING HEIGHT 100</code></pre></figure>
+
+<h2 id="widget-specific-settings">Widget-Specific Settings</h2>
+<p>The following settings are only available to the widgets listed.</p>
+
+<h3 id="bordercolor">BORDERCOLOR</h3>
+<p>The BORDERCOLOR setting changes the color of a layout widgets border.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Color Name</td>
+      <td>Common name for the color, e.g. ‘black’, ‘red’, etc</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>or</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Red Value</td>
+      <td>Red portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Green Value</td>
+      <td>Green portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Blue Value</td>
+      <td>Blue portion of an RGB value (0-255)</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">HORIZONTALBOX
+  LABEL <span class="s2">"Label 1"</span>
+  LABEL <span class="s2">"Label 2"</span>
+END
+SETTING BORDERCOLOR red</code></pre></figure>
+
+<h3 id="colorblind">COLORBLIND</h3>
+<p>The COLORBLIND setting enables/disables providing clues in visualization for users that are colorblind. Supported by all VALUE widgets.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>TRUE or FALSE</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUELIMITSBAR INST HEALTH_STATUS TEMP1
+  SETTING COLORBLIND TRUE</code></pre></figure>
+
+<h3 id="enable_aging">ENABLE_AGING</h3>
+<p>The ENABLE_AGING setting enables/disables graying of widgets if there value doesn’t change. Supported by ARRAY, BLOCK, and all VALUE widgets.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>TRUE or FALSE</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUE INST HEALTH_STATUS COLLECTS
+  SETTING ENABLE_AGING FALSE</code></pre></figure>
+
+<h3 id="gray_rate--grey_rate">GRAY_RATE / GREY_RATE</h3>
+<p>The GRAY_RATE and GREY_RATE settings change the rate at which graying occurs in widgets. Supported by ARRAY, BLOCK, and all VALUE widgets.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Gray Rate</td>
+      <td>The number of shades of gray that are subtracted at each polling period if the value hasn’t changed</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUE INST HEALTH_STATUS COLLECTS
+  SETTING GRAY_RATE 5</code></pre></figure>
+
+<h3 id="gray_tolerance--grey_tolerance">GRAY_TOLERANCE / GREY_TOLERANCE</h3>
+<p>The GRAY_TOLERANCE and GREY_TOLERANCE settings set the maximum change in value that will not cause the widget to recognize an items value as changing. Supported by all VALUE widgets.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tolerance Value</td>
+      <td>The maximum change in value that will cause the widget to not recognize an items value as changing.</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUE INST HEALTH_STATUS COLLECTS
+  SETTING GRAY_TOLERANCE 1</code></pre></figure>
+
+<h3 id="min_gray--min_grey">MIN_GRAY / MIN_GREY</h3>
+<p>The MIN_GRAY and MIN_GREY settings set the minimum shade of a gray that a widget will decay to if its value doesn’t change. Supported by ARRAY, BLOCK, and all VALUE widgets.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Minimum Gray</td>
+      <td>The minimum shade of a gray that a widget will decay to if its value doesn’t change. Must be a value between 0 (black) and 255 (white). (default = 200)</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">LABELVALUE INST HEALTH_STATUS TEMP1
+  SETTING GRAY_TOLERANCE 1000 <span class="c"># Prevent the widget from refreshing by choosing a high tolerance</span>
+  SETTING MIN_GRAY 0 <span class="c"># Set the minimum gray to black</span></code></pre></figure>
+
+<h3 id="trend_seconds">TREND_SECONDS</h3>
+<p>The TREND_SECONDS setting changes the number of seconds using during trending. Supported by the TREND widgets.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Seconds</td>
+      <td>The number of seconds to trend across</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">TRENDBAR INST HEALTH_STATUS TEMP1
+  SETTING TREND_SECONDS 10</code></pre></figure>
+
+<h3 id="value_eq">VALUE_EQ</h3>
+<p>The VALUE_EQ setting configures for an equal to comparison for a canvas value widget to determine ‘ON’ state.  Supported widgets: CANVASIMAGEVALUE, CANVASLABELVALUE, CANVASLINEVALUE.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>The value to compare against with ==</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVASIMAGEVALUE INST HEALTH_STATUS GROUND1STATUS <span class="s2">"ground"</span> 400 100
+  SETTING VALUE_EQ 0</code></pre></figure>
+
+<h3 id="value_gt">VALUE_GT</h3>
+<p>The VALUE_GT setting configures for a greater than comparison for a canvas value widget to determine ‘ON’ state.  Supported widgets: CANVASIMAGEVALUE, CANVASLABELVALUE, CANVASLINEVALUE.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>The value to compare against with &gt;</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVASIMAGEVALUE INST HEALTH_STATUS TEMP1 <span class="s2">"ground"</span> 400 100
+  SETTING VALUE_GT 10.0</code></pre></figure>
+
+<h3 id="value_gteq">VALUE_GTEQ</h3>
+<p>The VALUE_GTEQ setting configures for a greater than or equal to comparison for a canvas value widget to determine ‘ON’ state.  Supported widgets: CANVASIMAGEVALUE, CANVASLABELVALUE, CANVASLINEVALUE.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>The value to compare against with &gt;=</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVASIMAGEVALUE INST HEALTH_STATUS TEMP1 <span class="s2">"ground"</span> 400 100
+  SETTING VALUE_GTEQ 10.0</code></pre></figure>
+
+<h3 id="value_lt">VALUE_LT</h3>
+<p>The VALUE_LT setting configures for a less than comparison for a canvas value widget to determine ‘ON’ state.  Supported widgets: CANVASIMAGEVALUE, CANVASLABELVALUE, CANVASLINEVALUE.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>The value to compare against with &lt;</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVASIMAGEVALUE INST HEALTH_STATUS TEMP1 <span class="s2">"ground"</span> 400 100
+  SETTING VALUE_LT 10.0</code></pre></figure>
+
+<h3 id="value_lteq">VALUE_LTEQ</h3>
+<p>The VALUE_LTEQ setting configures for a less than or equal to comparison for a canvas value widget to determine ‘ON’ state.
+Supported widgets: CANVASIMAGEVALUE, CANVASLABELVALUE, CANVASLINEVALUE.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Value</td>
+      <td>The value to compare against with &lt;=</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVASIMAGEVALUE INST HEALTH_STATUS TEMP1 <span class="s2">"ground"</span> 400 100
+SETTING VALUE_LTEQ 10.0</code></pre></figure>
+
+<h3 id="tlm_and">TLM_AND</h3>
+<p>The TLM_AND setting allows added another comparison that is anded with the original comparison for a canvas value widget to determine ‘ON’ state.  Supported widgets: CANVASIMAGEVALUE, CANVASLABELVALUE, CANVASLINEVALUE.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Comparison Type</td>
+      <td>The comparison type: VALUE_EQ, VALUE_GT, VALUE_GTEQ, VALUE_LT, or VALUE_LTEQ</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value</td>
+      <td>The value to compare against</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVASIMAGEVALUE INST HEALTH_STATUS TEMP1 <span class="s2">"ground"</span> 400 100
+  SETTING VALUE_LTEQ 10.0
+  SETTING TLM_AND INST HEALTH_STATUS TEMP2 VALUE_GT 20.0</code></pre></figure>
+
+<h3 id="tlm_or">TLM_OR</h3>
+<p>The TLM_OR setting allows added another comparison that is ored with the original comparison for a canvas value widget to determine ‘ON’ state.  Supported widgets: CANVASIMAGEVALUE, CANVASLABELVALUE, CANVASLINEVALUE.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>The target name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>The packet name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>The item name portion of the telemetry mnemonic</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Comparison Type</td>
+      <td>The comparison type: VALUE_EQ, VALUE_GT, VALUE_GTEQ, VALUE_LT, or VALUE_LTEQ</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Value</td>
+      <td>The value to compare against</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example Usage:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CANVASIMAGEVALUE INST HEALTH_STATUS TEMP1 <span class="s2">"ground"</span> 400 100
+  SETTING VALUE_LTEQ 10.0
+  SETTING TLM_OR INST HEALTH_STATUS TEMP2 VALUE_GT 20.0</code></pre></figure>
+
+:ET

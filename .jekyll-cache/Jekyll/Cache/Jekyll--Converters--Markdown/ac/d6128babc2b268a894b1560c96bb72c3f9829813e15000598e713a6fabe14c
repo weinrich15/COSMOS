@@ -1,0 +1,19 @@
+I"�<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/228">#228</a> Fix typo in udp_interface</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/231">#231</a> MACRO_APPEND with multiple items not working</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/235">#235</a> Improve IntegerChooser and FloatChooser Validation</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/236">#236</a> TestRunner doesn’t support status_bar</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/240">#240</a> Make sure super() is called in all bundled conversion classes</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/241">#241</a> Don’t reformat BLOCK data types with a conversion in Structure#formatted</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-36x">Migration Notes from COSMOS 3.6.x:</h3>
+
+<ol>
+  <li>Background task arguments are now broken out instead of being received as a single array</li>
+  <li>udp_interface now takes an optional argument for bind_address</li>
+  <li>line_graph_script has been significantly updated to support modifying plots from the script.</li>
+</ol>
+:ET

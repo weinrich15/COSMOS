@@ -1,0 +1,38 @@
+I"�<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/382">#382</a> CmdTlmServer Start/Stop for background tasks</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/385">#385</a> Quick access to COSMOS gem code</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/388">#388</a> Legal Dialog should show COSMOS version</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/409">#409</a> Update LINC interface to support multiple targets on the same interface</li>
+</ul>
+
+<h3 id="maintenance">Maintenance:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/369">#369</a> Table Manager refactoring</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/386">#386</a> Batch file for offline installation</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/236">#236</a> Test Runner doesn’t support status_bar</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/329">#329</a> Using XTCE file instead of .txt cmd_tlm file didn’t work as online docs suggest</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/378">#378</a> TlmViewer displaying partials in the screen list</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/402">#402</a> Mac installation is failed - Please help.</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/411">#411</a> xtce explicit byte order list processing isn’t correct</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/412">#412</a> subscribe_packet_data needs to validate parameters</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-38x">Migration Notes from COSMOS 3.8.x:</h3>
+<p><strong>The Table Manager configuration file format has changed.</strong>
+Documentation will updated the first week of April.</p>
+
+<p>You can migrate existing config files using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle exec ruby tools\TableManager --convert config\tools\table_manager\old_table_def.txt
+</code></pre></div></div>
+
+<p>To upgrade to the latest version of COSMOS, run “bundle update cosmos” in your COSMOS project folder.</p>
+:ET

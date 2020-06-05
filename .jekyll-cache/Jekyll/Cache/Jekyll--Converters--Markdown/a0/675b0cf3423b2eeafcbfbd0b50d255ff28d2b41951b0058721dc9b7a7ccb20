@@ -1,0 +1,327 @@
+I"�+<p>This document describes Test Runner configuration file and command line parameters.</p>
+
+<h2 id="line_delay">LINE_DELAY</h2>
+<p><strong>Sets the amount of time in seconds before the next line of a script will be executed</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Delay</td>
+      <td>Delay in seconds before the next line is executed. A value of 0 means to execute the scripts as fast as possible.</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="pause_on_error">PAUSE_ON_ERROR</h2>
+<p><strong>Set or clear the pause on error checkbox</strong></p>
+
+<p>If this is checked, Test Runner will pause if the test encounters an error. Otherwise the error will be logged but the script will continue.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>Whether to pause when the script encounters an error<br /><br />Valid Values: <span class="values">TRUE, FALSE</span></td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="monitor_limits">MONITOR_LIMITS</h2>
+<p><strong>Log limits events to the Script Runner log file while a script is running</strong></p>
+
+<p>Limits events are always logged by the Command and Telemetry Server but are not put in the Script Runner log without this keyword.</p>
+
+<h2 id="pause_on_red">PAUSE_ON_RED</h2>
+<p><strong>Pause a running script if a red limit occurs</strong></p>
+
+<h2 id="load_utility">LOAD_UTILITY</h2>
+<p><strong>Specify a test procedure to load into Test Runner</strong></p>
+
+<p>Procedures will be found automatically in the procedures directory or can be given by a path relative to the COSMOS install directory or by an absolute path.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Filename</td>
+      <td>Name of the test file in quotes</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="results_writer">RESULTS_WRITER</h2>
+<p><strong>Specify a different Ruby file to interpret and print the Test Runner results</strong></p>
+
+<p>The specified Ruby file must define a class which implements the Cosmos::ResultsWriter API</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Filename</td>
+      <td>Name of the Ruby file which implements a result writer</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>Class Parameters</td>
+      <td>Parameters to pass to the constructor of the results writer</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="allow_debug">ALLOW_DEBUG</h2>
+<p><strong>Whether to allow the user to enable the debug line where the user can enter arbitrary statements</strong></p>
+
+<h2 id="continue_test_case_after_error">CONTINUE_TEST_CASE_AFTER_ERROR</h2>
+<p><strong>Set or clear the continue test case after error checkbox</strong></p>
+
+<p>If this is checked, Test Runner will continue executing the current test case after encountering an error. Otherwise the test case will stop at the error and the next test case will execute.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>Whether to continue the test case when the script encounters an error<br /><br />Valid Values: <span class="values">TRUE, FALSE</span></td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="abort_testing_after_error">ABORT_TESTING_AFTER_ERROR</h2>
+<p><strong>Set or clear the abort testing after error checkbox</strong></p>
+
+<p>If this is checked, Test Runner will stop executing after the current test case completes (how it completes depends on CONTINUE_TEST_CASE_AFTER_ERROR). Otherwise the next test case will execute.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>Whether to continue to the next test case when the script encounters an error<br /><br />Valid Values: <span class="values">TRUE, FALSE</span></td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="manual">MANUAL</h2>
+<p><strong>Set the $manual global variable for all executing scripts</strong></p>
+
+<p>The $manual variable can be checked during tests to allow for fully automated tests if it is not set, or for user input if it is set. This capability is completely dependent on user specific code which checks the $manual variable.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>Whether to set the $manual global to true<br /><br />Valid Values: <span class="values">TRUE, FALSE</span></td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="loop_testing">LOOP_TESTING</h2>
+<p><strong>Set or clear the loop testing checkbox</strong></p>
+
+<p>If this is checked, Test Runner will continue to run whatever level of tests that were initially started. If either “Abort Testing after Error” or “Break Loop after Error” are checked, then the loop testing will stop if an error is encountered. The difference is that the “Abort Testing after Error” will stop testing immediately after the current test case completes. “Break Loop after Error” continues the current loop by executing the remaining suite or group before stopping. In the case of executing a single test case the options effectively do the same thing.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>Whether to loop the selected test level<br /><br />Valid Values: <span class="values">TRUE, FALSE</span></td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="break_loop_after_error">BREAK_LOOP_AFTER_ERROR</h2>
+<p><strong>Set or clear the break loop after error checkbox</strong></p>
+
+<p>If this is checked, Test Runner continues the current loop by executing the remaining suite or group before stopping.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Enable</td>
+      <td>Whether to break the loop after encountering an error<br /><br />Valid Values: <span class="values">TRUE, FALSE</span></td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ignore_test">IGNORE_TEST</h2>
+<p><strong>Ignore the given test class name when parsing the tests</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Test Class Name</td>
+      <td>The test class to ignore when building the list of available tests</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ignore_test_suite">IGNORE_TEST_SUITE</h2>
+<p><strong>Ignores the given test suite name when parsing the tests</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Test Suite Name</td>
+      <td>The test suite to ignore when building the list of available tests</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="create_data_package">CREATE_DATA_PACKAGE</h2>
+<p><strong>Creates a data package of every file created during the test</strong></p>
+
+<h2 id="auto_cycle_logs">AUTO_CYCLE_LOGS</h2>
+<p><strong>Automatically start a new server message log and cmd/tlm logs at the beginning and end of each test. Typically used in combination with CREATE_DATA_PACKAGE.</strong></p>
+
+<h2 id="collect_metadata">COLLECT_METADATA</h2>
+<p><strong>Prompt for Meta Data before starting tests</strong></p>
+
+<h2 id="disable_test_suite_start">DISABLE_TEST_SUITE_START</h2>
+<p><strong>Disable the Test Suite Start button to prevent all tests in the Suite from running. This is a useful option if you’re simply using Suites and Groups to organize test cases but do not want a user to accidentally run them all.</strong></p>
+
+<h2 id="disable_test_group_start">DISABLE_TEST_GROUP_START</h2>
+<p><strong>Disable the Test Group Start button to prevent all tests in the Group from running. This is a useful option if you’re simply using Suites and Groups to organize test cases but do not want a user to accidentally run them all.</strong></p>
+
+<h3 id="example-file">Example File</h3>
+
+<p><strong>Example File: &lt;Cosmos::USERPATH&gt;/config/tools/test_runner/test_runner.txt</strong></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">REQUIRE_UTILITY example_test
+ALLOW_DEBUG
+PAUSE_ON_ERROR TRUE
+CONTINUE_TEST_CASE_AFTER_ERROR TRUE
+ABORT_TESTING_AFTER_ERROR FALSE
+MANUAL TRUE
+LOOP_TESTING TRUE
+BREAK_LOOP_AFTER_ERROR TRUE
+IGNORE_TEST ExampleTest
+IGNORE_TEST_SUITE ExampleTestSuite
+
+CREATE_DATA_PACKAGE
+COLLECT_META_DATA META DATA
+
+LINE_DELAY 0
+MONITOR_LIMITS
+PAUSE_ON_RED</code></pre></figure>
+
+<h2 id="command-line-parameters">Command Line Parameters</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usage: ruby TestRunner [options]
+
+    -h, --help                       Show this message
+    -v, --version                    Show version
+        --system FILE                Use an alternative system.txt file
+    -c, --config FILE                Use the specified configuration file
+        --stylesheet FILE            Use the specified stylesheet
+
+Window Size Options:
+        --minimized                  Start the tool minimized
+        --maximized                  Start the tool maximized
+        --defaultsize                Start the tool in its default size
+
+Window X &amp; Y Position Options:
+  Positive values indicate a position from the top and left of the screen.
+  Negative values indicate a position from the bottom and right of the screen.
+  A value of -1 indicates to place the right or bottom side of the window
+  next to the right or bottom edge of the screen.
+    -x, --xpos VALUE                 Window X position
+    -y, --ypos VALUE                 Window Y position
+
+Window Width and Height Options:
+  Specifing width and height will force the specified dimension.
+  Otherwise the window will layout according to its defaults.
+    -w, --width VALUE                Window width
+    -t, --height VALUE               Window height
+
+Test Runner Specific Options:
+    -s, --server FILE                Use the specified server configuration file for disconnect mode
+        --suite SUITE                Start the specified test suite.
+        --group GROUP                Start the specified test group. Requires the --suite option.
+        --case CASE                  Start the specified test case. Requires the --suite and --group options.
+</code></pre></div></div>
+
+:ET

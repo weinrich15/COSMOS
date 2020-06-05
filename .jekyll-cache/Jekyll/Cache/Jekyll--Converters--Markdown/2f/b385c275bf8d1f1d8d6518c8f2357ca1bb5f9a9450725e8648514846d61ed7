@@ -1,0 +1,28 @@
+I"p<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/200">#200</a> ScriptRunner Find Dialog Does Not Cross Windows</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/201">#201</a> Table Manager to support arbitrary inputs on State Fields</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/209">#209</a> Add UTS Timestamp Flag to TlmGrapher Plots</li>
+</ul>
+
+<h3 id="maintenance">Maintenance:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/194">#194</a> Allow up to one minute for TlmViewer to start when calling display() from a script</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/203">#203</a> load_utility should raise LoadError like load and require</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/205">#205</a> Add testing for array and matrix</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/191">#191</a> Installing COSMOS Issue on Windows 7</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/193">#193</a> Fix ask() on linux and qt 4.6.2</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/197">#197</a> Improve linc interface</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-35x">Migration Notes from COSMOS 3.5.x:</h3>
+
+<p>None</p>
+:ET

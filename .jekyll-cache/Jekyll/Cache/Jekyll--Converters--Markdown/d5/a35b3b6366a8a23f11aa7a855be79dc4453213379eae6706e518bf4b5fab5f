@@ -1,0 +1,42 @@
+I"�<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/230">#230</a> Make AUTO_TARGETS ignore target folders that have already been manually referenced</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/257">#257</a> Increment received_count in packet log reader</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/264">#264</a> Validate command/telemetry conversions during startup</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/292">#292</a> Target directory for API methods</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/314">#314</a> Update .bat files to handle spaces in path</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/316">#316</a> Add option to radiobutton widget to be checked by default</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/326">#326</a> Script Runner Crash using message_box with boolean parameter</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/339">#339</a> Add ‘Help’ menu item to open cosmosrb.com -&gt; Documentation</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/340">#340</a> Packet Viewer - Allow select cell and copy value as text</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/357">#357</a> Add support for mixed endianness within tables</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/359">#359</a> Table Manager support MIN/MAX UINTX macros</li>
+</ul>
+
+<h3 id="maintenance">Maintenance:</h3>
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/349">#349</a> Optimize cmd() to not build commands twice</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/362">#362</a> restore_defaults should take an optional parameter to exclude specified parameters</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/365">#365</a> Windows installer can have issues if .gem files are present in same folder</li>
+  <li>TestRunner support for newer Bundler (Abstract error when starting)</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/322">#322</a> Udp interface thread does not gracefully shutdown</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/327">#327</a> TlmGrapher Screenshot in Linux captures the screenshot dialog box</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/332">#332</a> ERB template local variables dont’ support strings</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/338">#338</a> Setting received_time and received_count on a packet should clear the read conversion cache</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/342">#342</a> Cut and Paste Error in top_level.rb</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/344">#344</a> CmdTlmServer connect/disconnect button doesn’t work after calling connect_interface from script</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/359">#359</a> Table Manager doesn’t support strings</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/372">#372</a> TestRunner reinstantiating TestSuite/Test objects every execution</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-37x">Migration Notes from COSMOS 3.7.x:</h3>
+<p>None</p>
+
+<p>To upgrade to the latest version of COSMOS, run “bundle update cosmos” in your COSMOS project folder.</p>
+:ET

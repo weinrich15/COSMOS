@@ -1,0 +1,15 @@
+I"e<h3 id="issues">Issues:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/10">#10</a> Simulated Targets Button only works on Windows</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/11">#11</a> Mac application folders not working</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/12">#12</a> Persistence should be applied even if changing from stale</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/14">#14</a> Allow information on logging page to be copied</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/16">#16</a> Ensure read conversion cache cannot be cleared mid-use</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/17">#17</a> NaNs in telemetry graph causes scaling crash</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-30x">Migration Notes from COSMOS 3.0.x:</h3>
+
+<p>The definition of limits persistence has changed. Before it only applied when changing to a bad state (yellow or red). Now persistence applies for all changes including from stale to a valid state and from bad states back to green.</p>
+:ET

@@ -1,0 +1,20 @@
+I"<p>With this release COSMOS now has initial support for the XTCE Command and Telemetry Definition standard.</p>
+
+<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/251">#251</a> Create COSMOS XTCE Converter</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/252">#252</a> Add polling rate command line option to PacketViewer</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/245">#245</a> TlmGrapher Crashes on Inf</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/248">#248</a> Can’t script commands containing ‘with’ in the name</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-37x">Migration Notes from COSMOS 3.7.x:</h3>
+<p>None</p>
+
+:ET

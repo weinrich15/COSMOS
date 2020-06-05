@@ -1,0 +1,36 @@
+I"2
+<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/184">#184</a> Limits Monitor show green for blue limits items</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/190">#190</a> Simpler MIN MAX syntax for command definitions</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/254">#254</a> Get buffer from commands</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/259">#259</a> Proper support for user selected text editor on linux</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/262">#262</a> PackerViewer option for listing derived items last</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/271">#271</a> Time.formatted option for no microseconds</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/288">#288</a> check_tolerance should enforce a positive tolerance</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/301">#301</a> Update use of COSMOS_DEVEL</li>
+</ul>
+
+<h3 id="maintenance">Maintenance:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/268">#268</a> xtce_converter doesn’t support byte order list</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/277">#277</a> Test Runner support for Script Runner options</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/285">#285</a> xtce converter doesn’t support LocationInContainerInBits</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/256">#256</a> Defining initialize method in Cosmos::Test class breaks the class when using Test Selection in TestRunner</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/273">#273</a> Wrap Qt::Application.instance in main_thread</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/287">#287</a> Installer issue on newer versions of Ubuntu and Debian related to libssl</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/293">#293</a> Units applied after a read_conversion that returns a string modifies cached conversion value</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/294">#294</a> String#convert_to_value should always just return the starting string if the conversion fails</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/298">#298</a> COSMOS IoMultiplexer breaks gems that invoke stream operator on STDOUT/ERR</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-37x">Migration Notes from COSMOS 3.7.x:</h3>
+<p>None</p>
+:ET

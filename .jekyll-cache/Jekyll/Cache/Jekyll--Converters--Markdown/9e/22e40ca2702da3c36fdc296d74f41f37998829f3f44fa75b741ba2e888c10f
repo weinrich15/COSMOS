@@ -1,0 +1,18 @@
+I"ª<h3 id="issues">Issues:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/23">#23</a> Handbook Creator Userâ€™s Guide Mode</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/72">#72</a> Refactor binary_accessor</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/101">#101</a> Support Ruby 2.2 and 64-bit Ruby on Windows</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/104">#104</a> CmdTlmServer Loading Tmp &amp; SVN Conflict Files</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/107">#107</a> Remove truthy and falsey from specs</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/110">#110</a> Optimize TlmGrapher</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/111">#111</a> Protect Interface Thread Stop from AutoReconnect</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/114">#114</a> Refactor Cosmos::Script module</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/118">#118</a> Allow PacketViewer to hide ignored items</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-33x">Migration Notes from COSMOS 3.3.x:</h3>
+
+<p>None</p>
+:ET

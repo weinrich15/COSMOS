@@ -1,0 +1,18 @@
+I"‘<h3 id="issues">Issues:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/34">#34</a> Refactor packet_config</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/43">#43</a> Add ccsds_log_reader.rb as an example of alternative log readers</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/45">#45</a> Slow shutdown of CTS and TlmViewer with threads trying to connect</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/46">#46</a> Add mutex protection to Cosmos::MessageLog</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/47">#47</a> TlmGrapher RangeError in Overview Graph</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/49">#49</a> Make about dialog scroll</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/55">#55</a> Automatic require of stream_protocol fix and cleanup</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/57">#57</a> Add OPTION keyword to support passing arbitrary options to interfaces/routers</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/59">#59</a> Add password mode to ask and ask_string</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-31x">Migration Notes from COSMOS 3.1.x:</h3>
+
+<p>No significant updates to existing code should be needed. The primary reason for update to 3.2.x is fixing the slow shutdown present in all of 3.1.x.</p>
+:ET

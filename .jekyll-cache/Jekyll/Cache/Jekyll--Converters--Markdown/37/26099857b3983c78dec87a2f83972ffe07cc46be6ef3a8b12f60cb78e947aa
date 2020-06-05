@@ -1,0 +1,20 @@
+I"�<p>COSMOS first-time startup speed is now 16 times faster - hence this release is codenamed “Startup Cheetah”. Enjoy!</p>
+
+<h3 id="issues">Issues:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/91">#91</a> Add mutex around creation of System.instance</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/89">#89</a> Reduce maximum block count from 10000 to 100 everywhere</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/87">#87</a> MACRO doesn’t support more than one item</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/85">#85</a> Replace use of DL with Fiddle</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/82">#82</a> Improve COSMOS startup speed</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/81">#81</a> UNKNOWN target identifies all buffers before other targets have a chance</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/78">#78</a> Reduce COSMOS memory usage</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/76">#76</a> Fix specs to new expect syntax and remove ‘should’</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/74">#74</a> Server requests/sec and utilization are incorrect</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-32x">Migration Notes from COSMOS 3.2.x:</h3>
+
+<p>System.telemetry.target_names and System.commands.target_names no longer contain the ‘UNKNOWN’ target.</p>
+:ET

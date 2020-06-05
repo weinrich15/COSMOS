@@ -1,0 +1,31 @@
+I"–<h3 id="new-features">New Features:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/213">#213</a> Vertical Limits Bar</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/214">#214</a> TlmGrapher show full date for plotted points</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/219">#219</a> State Color Widget</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/225">#225</a> Set Bind Address in UDP interface</li>
+</ul>
+
+<h3 id="maintenance">Maintenance:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/223">#223</a> C Extension Improvements</li>
+</ul>
+
+<h3 id="bug-fixes">Bug Fixes:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/199">#199</a> Investigate TlmGrapher Formatted Time Item</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/211">#211</a> Background task with arguments not working</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/217">#217</a> Graph Right Margin Too Small</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-36x">Migration Notes from COSMOS 3.6.x:</h3>
+
+<ol>
+  <li>Background task arguments are now broken out instead of being received as a single array</li>
+  <li>udp_interface now takes an optional argument for bind_address</li>
+  <li>line_graph_script has been significantly updated to support modifying plots from the script.</li>
+</ol>
+:ET

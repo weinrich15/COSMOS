@@ -1,0 +1,13 @@
+I"<h3 id="issues">Issues:</h3>
+
+<ul>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/93">#93</a> Derived items that return arrays are not formatted to strings bug</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/94">#94</a> JsonDRb retry if first attempt hits a closed socket bug</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/96">#96</a> Make max lines written to output a variable in ScriptRunnerFrame enhancement</li>
+  <li><a href="https://github.com/BallAerospace/COSMOS/issues/99">#99</a> Increase Block Count in DataViewer</li>
+</ul>
+
+<h3 id="migration-notes-from-cosmos-32x">Migration Notes from COSMOS 3.2.x:</h3>
+
+<p>System.telemetry.target_names and System.commands.target_names no longer contain the ‘UNKNOWN’ target.</p>
+:ET
