@@ -1,0 +1,99 @@
+I"u<p>This document describes Limits Monitor configuration file and command line parameters.</p>
+
+<h2 id="ignore_item">IGNORE_ITEM</h2>
+<p><strong>Ignore a particular telemetry item</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Name of the telemetry target<br /><br />Valid Values: <span class="values">Any Target Name</span></td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>Name of the telemetry packet</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>Name of the telemetry item</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ignore_packet">IGNORE_PACKET</h2>
+<p><strong>Ignore all telemetry items for a specified packet</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Name of the telemetry target<br /><br />Valid Values: <span class="values">Any Target Name</span></td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>Name of the telemetry packet</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ignore_stale">IGNORE_STALE</h2>
+<div class="right">(Since 4.0.0)</div>
+<p><strong>Ignore the staleness of a specified packet</strong></p>
+
+<p>Note that only the packet staleness is ignored. If the packet is received and an item is out-of-limits, that will still count against the overall system limits state unless the item or packet is separately ignored with the IGNORE_ITEM or IGNORE_PACKET keyword.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target Name</td>
+      <td>Name of the telemetry target<br /><br />Valid Values: <span class="values">Any Target Name</span></td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>Packet Name</td>
+      <td>Name of the telemetry packet</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="color_blind">COLOR_BLIND</h2>
+<p><strong>Use a color-blind accessibility mode</strong></p>
+
+<p>Color blind mode causes the value for out-of-limits items to have a code appended to indicate the limits status. The code is r = red low, y = yellow low, g = green low, B = blue, G = green or green high, Y = yellow high, R = red high.</p>
+
+<h2 id="ignore_operational_limits">IGNORE_OPERATIONAL_LIMITS</h2>
+<p><strong>Ignore GREEN_HIGH or GREEN_LOW limits states</strong></p>
+
+<p>Items with operational limits will only show up in limits monitor if they go yellow or red</p>
+
+<h2 id="command-line-parameters">Command Line Parameters</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+
+:ET

@@ -1,0 +1,31 @@
+I"5<p>This document describes Command Sequence configuration file and command line parameters.</p>
+
+<h2 id="exporter">EXPORTER</h2>
+<p><strong>Configure a Ruby class to export the command sequence definition into a custom format</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Exporter Class Filename</td>
+      <td>The name of the Ruby class which implements the exporter. Follow the convention of lower case filename with words separated by underscores. For example if your class is “MyExporter” your filename would be “my_exporter.rb”.</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>Exporter Class Arguments</td>
+      <td>Arguments to pass to the class constructor. There can be more than one.</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="command-line-parameters">Command Line Parameters</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+
+:ET
