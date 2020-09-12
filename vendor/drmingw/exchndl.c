@@ -511,7 +511,8 @@ LONG CALLBACK TopLevelExceptionFilter(PEXCEPTION_POINTERS pExceptionInfo)
           SYSTEMTIME SystemTime;
 
           GetLocalTime(&SystemTime);
-          sprintf(szLogFileName,
+          //sprintf(szLogFileName,
+          int logLength = snprintf(szLogFileName, MAX_PATH,
             "%s\\%04u_%02u_%02u_%02u_%02u_%02u_segfault.txt",
             cosmos_log_dir,
             SystemTime.wYear,
