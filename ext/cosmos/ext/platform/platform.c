@@ -41,6 +41,7 @@ VALUE cSegFault = Qnil;
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     int length =  snprintf(filename, MAX_PATH, "%s/%04u_%02u_%02u_%02u_%02u_%02u_segfault.txt",
+      cosmos_log_dir,
       1900 + timeinfo->tm_year,
       1 + timeinfo->tm_mon,
       timeinfo->tm_mday,
