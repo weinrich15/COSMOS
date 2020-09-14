@@ -487,7 +487,7 @@ module DartCommon
         @target_id_tlm_packet_name_to_id[target.id][packet.name] = packet.id
         @packet_id_item_name_to_id[packet.id] = {}
 #  items = Item.where("packet_id = #{packet.id}").all
-        items = Item.where("packet_id ?=", packet.id).all
+        items = Item.where("packet_id = ?", packet.id).all
         items.each do |item|
           @packet_id_item_name_to_id[packet.id][item.name] = item.id
         end
@@ -497,7 +497,7 @@ module DartCommon
         @target_id_cmd_packet_name_to_id[target.id][packet.name] = packet.id
         @packet_id_item_name_to_id[packet.id] = {}
 #  items = Item.where("packet_id = #{packet.id}").all
-        items = Item.where("packet_id ?=", packet.id).all
+        items = Item.where("packet_id = ?", packet.id).all
         items.each do |item|
           @packet_id_item_name_to_id[packet.id][item.name] = item.id
         end
