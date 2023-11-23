@@ -15,7 +15,7 @@
   "dependencies": {
     "@types/node": "^14.0.14",
     "execa": "^0.6.3",
-    "find": "^0.2.7",
+    "find": "^0.3.0",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
     "vscode-languageserver": "^3.5.1",
